@@ -3,12 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genres</title>
+    <title>🎭 Browse by Genre - Ved Webnovel Hub</title>
+    <style>
+        /* 🔥 GLOBAL STYLES - Smooth Dark Mode */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #111, #222);
+            color: white;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* 🔥 HEADER - Animated Glowing Effect */
+        header {
+            background: #181818;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 10px #facc15; }
+            100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
+        }
+
+        /* 🔥 NAVBAR - Smooth Hover Effect */
+        nav {
+            background: #292929;
+            padding: 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #facc15;
+            text-shadow: 0 0 8px #facc15;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 GENRES CONTAINER */
+        .genres-container {
+            margin: 30px auto;
+            max-width: 900px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🔥 GENRE BUTTONS */
+        .genre-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .genre-buttons button {
+            background: #facc15;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .genre-buttons button:hover {
+            background: #e0b712;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 NOVEL LIST */
+        .novel-list {
+            text-align: left;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .novel-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .novel-list li {
+            padding: 12px;
+            border-bottom: 1px solid #444;
+            transition: background 0.3s;
+        }
+
+        .novel-list li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        /* 🔥 FOOTER */
+        footer {
+            background: #111;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- 🔥 HEADER -->
     <header>
-        <h1>🎭 Browse by Genre</h1>
+        Explore Novels by Genre!
     </header>
+
+    <!-- 🔥 NAVBAR -->
     <nav>
         <a href="index.html">🏠 Home</a> |
         <a href="novels.html">📖 Novels</a> |
@@ -18,15 +142,69 @@
         <a href="about.html">❓ About</a> |
         <a href="contact.html">📩 Contact</a>
     </nav>
-    <hr>
-    <ul>
-        <li><a href="#">Fantasy</a></li>
-        <li><a href="#">Sci-Fi</a></li>
-        <li><a href="#">Romance</a></li>
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Horror</a></li>
-        <li><a href="#">Adventure</a></li>
-        <li><a href="#">Mystry</a></li>
-    </ul>
+
+    <!-- 🔥 GENRES CONTAINER -->
+    <div class="genres-container">
+        <h2>📖 Select a Genre</h2>
+
+        <!-- 🔥 GENRE BUTTONS -->
+        <div class="genre-buttons">
+            <button onclick="filterNovels('Action')">⚔️ Action</button>
+            <button onclick="filterNovels('Adventure')">🌍 Adventure</button>
+            <button onclick="filterNovels('Comedy')">😂 Comedy</button>
+            <button onclick="filterNovels('Fantasy')">🧙 Fantasy</button>
+            <button onclick="filterNovels('Horror')">👻 Horror</button>
+            <button onclick="filterNovels('Mystery')">🕵️ Mystery</button>
+            <button onclick="filterNovels('Sci-Fi')">🚀 Sci-Fi</button>
+            <button onclick="filterNovels('Romance')">❤️ Romance</button>
+            <button onclick="filterNovels('Drama')">🎭 Drama</button>
+            <button onclick="filterNovels('Historical')">🏰 Historical</button>
+        </div>
+
+        <!-- 🔥 NOVEL LIST -->
+        <div class="novel-list">
+            <h3>📚 Novels in Selected Genre:</h3>
+            <ul id="novelResults">
+                <li>Select a genre to see novels.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 🔥 FOOTER -->
+    <footer>
+        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
+    </footer>
+
+    <script>
+        function filterNovels(genre) {
+            let novelResults = document.getElementById('novelResults');
+            novelResults.innerHTML = ""; // Clear previous results
+
+            // Sample Data for Testing
+            let novels = {
+                "Action": ["⚔️ War of the Kings", "🔥 The Martial Path"],
+                "Adventure": ["🌍 The Lost Realm", "🔎 Journey to the Unknown"],
+                "Comedy": ["😂 My Clumsy Life", "🤣 Pranks of Destiny"],
+                "Fantasy": ["🧙 Magic and Myths", "🐉 Dragon’s Legacy"],
+                "Horror": ["👻 Haunted Nights", "💀 Shadows of the Dark"],
+                "Mystery": ["🕵️ Case of the Vanished Soul", "🔍 Secrets of the Mansion"],
+                "Sci-Fi": ["🚀 Galactic Wars", "🤖 AI Uprising"],
+                "Romance": ["❤️ Love Beyond Time", "💞 The Star-Crossed Lovers"],
+                "Drama": ["🎭 Tragedy and Triumph", "🎬 The Actor’s Mask"],
+                "Historical": ["🏰 The Royal Bloodline", "🛡️ Knights of Honor"]
+            };
+
+            if (novels[genre]) {
+                novels[genre].forEach(title => {
+                    let listItem = document.createElement('li');
+                    listItem.textContent = title;
+                    novelResults.appendChild(listItem);
+                });
+            } else {
+                novelResults.innerHTML = "<li>No novels found.</li>";
+            }
+        }
+    </script>
+
 </body>
 </html>
