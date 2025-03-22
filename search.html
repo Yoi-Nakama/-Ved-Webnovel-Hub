@@ -3,12 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔍 Search Novels</title>
+    <title>🔍 Search Novels | Ved Webnovel Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #0f0f0f;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1f1f1f;
+            padding: 20px;
+            font-size: 24px;
+        }
+        nav {
+            background-color: #292929;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        nav a:hover {
+            color: #facc15;
+        }
+        hr {
+            border: 1px solid #444;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+            border: 2px solid #444;
+            border-radius: 5px;
+            background-color: #222;
+            color: white;
+        }
+        input:focus {
+            outline: none;
+            border-color: #facc15;
+            box-shadow: 0 0 10px #facc15;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 18px;
+            margin-top: 10px;
+            border: none;
+            background-color: #facc15;
+            color: black;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #ffcc00;
+        }
+        #searchResults {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 18px;
+        }
+        .result-item {
+            padding: 8px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        .result-item:hover {
+            background-color: #444;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>🔍 Search for Your Favorite Novels</h1>
-    </header>
+
+    <header>🔍 Search for Your Favorite Novels</header>
 
     <nav>
         <a href="index.html">🏠 Home</a> |
@@ -20,22 +99,45 @@
     </nav>
     <hr>
 
-    <p>Type the name of a novel to search:</p>
-    
-    <input type="text" id="searchBox" placeholder="Enter novel title...">
-    <button onclick="searchNovel()">🔍 Search</button>
-    
-    <p id="searchResult"></p>
+    <div class="container">
+        <h2>Search for Novels 📚</h2>
+        <p>Type a novel title below to find what you're looking for!</p>
+        
+        <input type="text" id="searchBox" placeholder="Enter novel title..." onkeyup="searchNovel()">
+        <button onclick="searchNovel()">🔍 Search</button>
+
+        <div id="searchResults"></div>
+    </div>
 
     <script>
+        // Dummy Novel List (Replace this with actual data if needed)
+        var novels = [
+            "One Piece: The Grand Voyage",
+            "Chronicles of the Forgotten Realm",
+            "The Eternal Swordsman",
+            "Whispers of the Abyss",
+            "Stars Beyond the Horizon",
+            "The Lost Mage's Legacy"
+        ];
+
         function searchNovel() {
-            var query = document.getElementById("searchBox").value.trim();
-            if (query !== "") {
-                var searchURL = "https://yoi-nakama.github.io/-Ved-Webnovel-Hub/novels.html";
-                document.getElementById("searchResult").innerHTML = 
-                    "Click <a href='" + searchURL + "' target='_blank'>here</a> to browse novels.";
+            var query = document.getElementById("searchBox").value.trim().toLowerCase();
+            var resultsDiv = document.getElementById("searchResults");
+            resultsDiv.innerHTML = "";
+
+            if (query === "") {
+                resultsDiv.innerHTML = "<p>Please enter a novel title.</p>";
+                return;
+            }
+
+            var results = novels.filter(novel => novel.toLowerCase().includes(query));
+
+            if (results.length > 0) {
+                results.forEach(novel => {
+                    resultsDiv.innerHTML += `<div class="result-item">📖 ${novel}</div>`;
+                });
             } else {
-                document.getElementById("searchResult").innerHTML = "Please enter a novel title.";
+                resultsDiv.innerHTML = "<p>No results found. Try another title.</p>";
             }
         }
     </script>
