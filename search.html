@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔍 Search Novels - Ved Webnovel Hub</title>
+    <title>🔍 Search & Browse Novels - Ved Webnovel Hub</title>
     <style>
         /* 🔥 GLOBAL STYLES - Smooth Dark Mode */
         body {
@@ -159,7 +159,7 @@
 
     <!-- 🔥 HEADER -->
     <header>
-        Search for Your Next Adventure!
+        Search & Browse Your Next Adventure!
     </header>
 
     <!-- 🔥 NAVBAR -->
@@ -187,10 +187,16 @@
         <div class="filters">
             <select id="genreFilter">
                 <option value="">All Genres</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Sci-Fi">Sci-Fi</option>
-                <option value="Romance">Romance</option>
-                <option value="Action">Action</option>
+                <option value="Action">⚔️ Action</option>
+                <option value="Adventure">🌍 Adventure</option>
+                <option value="Comedy">😂 Comedy</option>
+                <option value="Fantasy">🧙 Fantasy</option>
+                <option value="Horror">👻 Horror</option>
+                <option value="Mystery">🕵️ Mystery</option>
+                <option value="Sci-Fi">🚀 Sci-Fi</option>
+                <option value="Romance">❤️ Romance</option>
+                <option value="Drama">🎭 Drama</option>
+                <option value="Historical">🏰 Historical</option>
             </select>
 
             <select id="ratingFilter">
@@ -223,10 +229,15 @@
             let resultsList = document.getElementById('resultsList');
             resultsList.innerHTML = "";
 
-            if (query === "solo leveling") {
-                resultsList.innerHTML += "<li>📖 Solo Leveling - By Chugong</li>";
-            } else if (query === "one piece") {
-                resultsList.innerHTML += "<li>📖 One Piece: The Untold Story</li>";
+            let novels = {
+                "solo leveling": "📖 Solo Leveling - By Chugong",
+                "one piece": "📖 One Piece: The Untold Story",
+                "harry potter": "📖 Harry Potter: Fan Edition",
+                "attack on titan": "📖 Attack on Titan: Lost Chronicles"
+            };
+
+            if (novels[query]) {
+                resultsList.innerHTML += `<li>${novels[query]}</li>`;
             } else {
                 resultsList.innerHTML += "<li>No results found.</li>";
             }
