@@ -3,145 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔍 Search Novels | Ved Webnovel Hub</title>
+    <title>🔍 Search Novels - Ved Webnovel Hub</title>
     <style>
+        /* 🔥 GLOBAL STYLES - Smooth Dark Mode */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #0f0f0f;
+            background: linear-gradient(to right, #111, #222);
             color: white;
             margin: 0;
             padding: 0;
+            animation: fadeIn 1s ease-in;
         }
+
+        /* 🔥 HEADER - Glowing Animated Effect */
         header {
-            background-color: #1f1f1f;
+            background: #181818;
             padding: 20px;
             font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glowEffect 2s infinite alternate;
         }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 10px #facc15; }
+            100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
+        }
+
+        /* 🔥 NAVBAR - Smooth Hover Effect */
         nav {
-            background-color: #292929;
-            padding: 10px;
+            background: #292929;
+            padding: 12px;
         }
         nav a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-size: 18px;
+            transition: 0.3s;
         }
         nav a:hover {
             color: #facc15;
+            text-shadow: 0 0 8px #facc15;
+            transform: scale(1.1);
         }
-        hr {
-            border: 1px solid #444;
-        }
-        .container {
-            margin: 20px auto;
-            max-width: 600px;
+
+        /* 🔥 SEARCH CONTAINER */
+        .search-container {
+            margin: 30px auto;
+            max-width: 900px;
             padding: 20px;
-            background-color: #1c1c1c;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🔥 SEARCH BAR */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            border: 1px solid #facc15;
+            box-shadow: 0 0 10px #facc15;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 12px 15px;
+            font-size: 16px;
+            background: #facc15;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #e0b712;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 FILTERS */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filters select {
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        /* 🔥 SEARCH RESULTS */
+        .results {
+            text-align: left;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
-        input {
-            width: 80%;
-            padding: 10px;
-            font-size: 18px;
-            border: 2px solid #444;
-            border-radius: 5px;
-            background-color: #222;
-            color: white;
+
+        .results ul {
+            list-style: none;
+            padding: 0;
         }
-        input:focus {
-            outline: none;
-            border-color: #facc15;
-            box-shadow: 0 0 10px #facc15;
+
+        .results li {
+            padding: 12px;
+            border-bottom: 1px solid #444;
+            transition: background 0.3s;
         }
-        button {
-            padding: 10px 15px;
-            font-size: 18px;
-            margin-top: 10px;
-            border: none;
-            background-color: #facc15;
-            color: black;
+
+        .results li:hover {
+            background: rgba(255, 255, 255, 0.1);
             cursor: pointer;
-            border-radius: 5px;
         }
-        button:hover {
-            background-color: #ffcc00;
-        }
-        #searchResults {
-            margin-top: 20px;
-            text-align: left;
-            font-size: 18px;
-        }
-        .result-item {
-            padding: 8px;
-            background-color: #333;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-        .result-item:hover {
-            background-color: #444;
+
+        /* 🔥 FOOTER */
+        footer {
+            background: #111;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
 
-    <header>🔍 Search for Your Favorite Novels</header>
+    <!-- 🔥 HEADER -->
+    <header>
+        Search for Your Next Adventure!
+    </header>
 
+    <!-- 🔥 NAVBAR -->
     <nav>
         <a href="index.html">🏠 Home</a> |
         <a href="novels.html">📖 Novels</a> |
         <a href="upload.html">📝 Upload</a> |
         <a href="genres.html">🎭 Genres</a> |
+        <a href="search.html">🔍 Search</a> |
         <a href="about.html">❓ About</a> |
         <a href="contact.html">📩 Contact</a>
     </nav>
-    <hr>
 
-    <div class="container">
-        <h2>Search for Novels 📚</h2>
-        <p>Type a novel title below to find what you're looking for!</p>
-        
-        <input type="text" id="searchBox" placeholder="Enter novel title..." onkeyup="searchNovel()">
-        <button onclick="searchNovel()">🔍 Search</button>
+    <!-- 🔥 SEARCH CONTAINER -->
+    <div class="search-container">
+        <h2>🔍 Find Your Favorite Novels!</h2>
 
-        <div id="searchResults"></div>
+        <!-- 🔥 SEARCH BAR -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search novels by title, author, or keywords...">
+            <button onclick="searchNovel()">🔍 Search</button>
+        </div>
+
+        <!-- 🔥 FILTERS -->
+        <div class="filters">
+            <select id="genreFilter">
+                <option value="">All Genres</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Romance">Romance</option>
+                <option value="Action">Action</option>
+            </select>
+
+            <select id="ratingFilter">
+                <option value="">All Ratings</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+        </div>
+
+        <!-- 🔥 SEARCH RESULTS -->
+        <div class="results">
+            <h3>📖 Search Results:</h3>
+            <ul id="resultsList">
+                <li>No results found.</li>
+            </ul>
+        </div>
     </div>
 
+    <!-- 🔥 FOOTER -->
+    <footer>
+        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
+    </footer>
+
     <script>
-        // Dummy Novel List (Replace this with actual data if needed)
-        var novels = [
-            "One Piece: The Grand Voyage",
-            "Chronicles of the Forgotten Realm",
-            "The Eternal Swordsman",
-            "Whispers of the Abyss",
-            "Stars Beyond the Horizon",
-            "The Lost Mage's Legacy"
-        ];
-
         function searchNovel() {
-            var query = document.getElementById("searchBox").value.trim().toLowerCase();
-            var resultsDiv = document.getElementById("searchResults");
-            resultsDiv.innerHTML = "";
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            let resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = "";
 
-            if (query === "") {
-                resultsDiv.innerHTML = "<p>Please enter a novel title.</p>";
-                return;
-            }
-
-            var results = novels.filter(novel => novel.toLowerCase().includes(query));
-
-            if (results.length > 0) {
-                results.forEach(novel => {
-                    resultsDiv.innerHTML += `<div class="result-item">📖 ${novel}</div>`;
-                });
+            if (query === "solo leveling") {
+                resultsList.innerHTML += "<li>📖 Solo Leveling - By Chugong</li>";
+            } else if (query === "one piece") {
+                resultsList.innerHTML += "<li>📖 One Piece: The Untold Story</li>";
             } else {
-                resultsDiv.innerHTML = "<p>No results found. Try another title.</p>";
+                resultsList.innerHTML += "<li>No results found.</li>";
             }
         }
     </script>
 
 </body>
 </html>
-
