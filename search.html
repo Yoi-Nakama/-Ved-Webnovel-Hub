@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Novels</title>
+    <link rel="stylesheet" href="style.css"> <!-- Connects to CSS -->
+</head>
+<body>
+
+    <header>
+        <h1>🔎 Search for a Novel</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="novels.html">📖 Novels</a> |
+        <a href="upload.html">📝 Upload</a> |
+        <a href="genres.html">🎭 Genres</a> |
+        <a href="about.html">❓ About</a> |
+        <a href="contact.html">📩 Contact</a> |
+        <a href="search.html">🔍 Search</a>
+    </nav>
+
+    <hr>
+
+    <section>
+        <h2>📚 Find Your Favorite Novel</h2>
+        <p>Search by title, author, or genre:</p>
+        
+        <!-- Google Search Box (Searches Inside Website) -->
+        <form action="https://www.google.com/search" method="GET" target="_blank">
+            <input type="hidden" name="sitesearch" value="https://yoi-nakama.github.io/Ved-Webnovel-Hub"> <!-- Replace with your site link -->
+            <input type="text" name="q" placeholder="Type here..." required>
+            <button type="submit">🔍 Search</button>
+        </form>
+
+        <h3>Popular Searches:</h3>
+        <ul>
+            <li><a href="https://www.google.com/search?q=Fantasy+site:yoi-nakama.github.io/Ved-Webnovel-Hub" target="_blank">Fantasy Novels</a></li>
+            <li><a href="https://www.google.com/search?q=Sci-Fi+site:yoi-nakama.github.io/Ved-Webnovel-Hub" target="_blank">Sci-Fi Novels</a></li>
+            <li><a href="https://www.google.com/search?q=Romance+site:yoi-nakama.github.io/Ved-Webnovel-Hub" target="_blank">Romance Novels</a></li>
+            <li><a href="https://www.google.com/search?q=Best+Authors+site:yoi-nakama.github.io/Ved-Webnovel-Hub" target="_blank">Best Authors</a></li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <footer>
+        <p>📚 Ved Webnovel Hub – Bringing Stories to Life!</p>
+    </footer>
+
+</body>
+</html>
 
