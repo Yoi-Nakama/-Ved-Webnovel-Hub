@@ -3,13 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ved Webnovel Hub</title>
+    <title>📚 Ved Webnovel Hub - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #0f0f0f;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #1f1f1f;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            max-width: 150px;
+        }
+        .auth-buttons {
+            margin-right: 20px;
+        }
+        .auth-buttons button {
+            background-color: #facc15;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        nav {
+            background-color: #292929;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+        }
+        nav a:hover {
+            color: #facc15;
+        }
+        hr {
+            border: 1px solid #444;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+        img.banner {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+        .search-bar {
+            margin-top: 15px;
+        }
+        .search-bar input {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #facc15;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .search-bar button:hover {
+            background-color: #e0b712;
+        }
+        .favorites {
+            margin-top: 20px;
+        }
+        .rating-system {
+            margin-top: 20px;
+        }
+        .rating-system select {
+            font-size: 16px;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>📖 Welcome to Ved Webnovel Hub!</h1>
-        <p>The best place to read and upload novels!</p>
+        <img src="https://api.deepai.org/job-view-file/6e3fe00b-fdcd-452d-a74a-bb557f754b58/outputs/output.jpg" alt="Ved Webnovel Logo" class="logo">
+        <div class="auth-buttons">
+            <button onclick="login()">Login</button>
+            <button onclick="signup()">Sign Up</button>
+        </div>
     </header>
+
     <nav>
         <a href="index.html">🏠 Home</a> |
         <a href="novels.html">📖 Novels</a> |
@@ -20,7 +119,71 @@
         <a href="contact.html">📩 Contact</a>
     </nav>
     <hr>
-    <p>This is just the beginning. More features coming soon!</p>
+
+    <img src="https://api.deepai.org/job-view-file/1a8e8f6e-cbcf-4197-a254-d7e747b299c9/outputs/output.jpg" alt="Welcome Banner" class="banner">
+
+    <div class="container">
+        <h1>📚 Welcome to Ved Webnovel Hub!</h1>
+        <p>Your one-stop destination for reading and sharing amazing webnovels. Join our community of writers and readers today!</p>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for novels...">
+            <button onclick="searchNovel()">🔍 Search</button>
+        </div>
+
+        <div class="favorites">
+            <h2>🌟 Favorite Novels</h2>
+            <button onclick="addToFavorites()">📌 Add to Favorites</button>
+            <ul id="favoritesList"></ul>
+        </div>
+
+        <div class="rating-system">
+            <h2>⭐ Rate This Website</h2>
+            <select id="rating">
+                <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                <option value="4">⭐⭐⭐⭐ - Great</option>
+                <option value="3">⭐⭐⭐ - Good</option>
+                <option value="2">⭐⭐ - Okay</option>
+                <option value="1">⭐ - Needs Improvement</option>
+            </select>
+            <button onclick="submitRating()">Submit Rating</button>
+        </div>
+    </div>
+
+    <script>
+        function searchNovel() {
+            let query = document.getElementById('searchInput').value;
+            if (query.trim() !== '') {
+                window.location.href = "search.html?query=" + encodeURIComponent(query);
+            } else {
+                alert('Please enter a search term.');
+            }
+        }
+
+        function login() {
+            alert('Login feature coming soon!');
+        }
+
+        function signup() {
+            alert('Signup feature coming soon!');
+        }
+
+        function addToFavorites() {
+            let title = prompt('Enter the name of the novel you want to add to favorites:');
+            if (title) {
+                let list = document.getElementById('favoritesList');
+                let listItem = document.createElement('li');
+                listItem.textContent = title;
+                list.appendChild(listItem);
+                alert(title + ' added to favorites!');
+            }
+        }
+
+        function submitRating() {
+            let rating = document.getElementById('rating').value;
+            alert('Thanks for rating us ' + rating + ' stars!');
+        }
+    </script>
+
 </body>
 </html>
-
