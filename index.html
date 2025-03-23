@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Ved Webnovel Hub - The Bag of Books</title>
+    <title>📚 Ved Webnovel Hub - Home</title>
     <style>
         /* 🔥 GLOBAL STYLES */
         body {
@@ -50,30 +50,6 @@
             transform: scale(1.1);
         }
 
-        /* 🔥 AUTH BUTTONS */
-        .auth-buttons {
-            margin: 20px;
-        }
-        .auth-buttons button {
-            background: #facc15;
-            border: none;
-            padding: 12px 18px;
-            margin: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-        .auth-buttons button:hover {
-            background: #e0b712;
-            transform: scale(1.1);
-        }
-
-        /* 🔥 LOCKED CONTENT */
-        .locked {
-            display: none;
-        }
-
         /* 🔥 CONTENT CONTAINER */
         .container {
             margin: 30px auto;
@@ -88,6 +64,22 @@
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🔥 LOGOUT BUTTON */
+        .logout-btn {
+            background: red;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: darkred;
+            transform: scale(1.05);
         }
 
         /* 🔥 FOOTER */
@@ -106,40 +98,52 @@
         📚 Welcome to Ved Webnovel Hub - The Bag of Books!
     </header>
 
-    <!-- 🔥 AUTH SECTION (LOGIN REQUIRED) -->
-    <div class="auth-buttons" id="authSection">
-        <button onclick="openLogin()">Login</button>
-        <button onclick="openSignup()">Sign Up</button>
+    <!-- 🔥 NAVBAR -->
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="novels.html">📖 Novels</a> |
+        <a href="upload.html">📝 Upload</a> |
+        <a href="genres.html">🎭 Genres</a> |
+        <a href="search.html">🔍 Search</a> |
+        <a href="about.html">❓ About</a> |
+        <a href="contact.html">📩 Contact</a>
+    </nav>
+
+    <!-- 🔥 CONTENT CONTAINER -->
+    <div class="container">
+        <h1>📚 The Ultimate Webnovel Community for Small Creators!</h1>
+        <p>
+            **Ved Webnovel Hub** is **not just a website—it's a home for writers!**  
+            A **safe space** for small content creators who dream of sharing their stories but feel unheard.  
+            This is a **family, a support system, and a journey for all of us**! 🚀
+        </p>
+
+        <h2>⭐ Why Join Ved Webnovel Hub?</h2>
+        <ul>
+            <li>📖 **Read & Upload** your novels in a **friendly, supportive space**.</li>
+            <li>💬 **Engage in Discussions** – Writers **help each other grow!**.</li>
+            <li>🔥 **Exclusive Author Features** – **Ranks, Badges, and Featured Novels!**</li>
+            <li>🚀 **Boost Your Novel** – Gain **real readers, feedback, and confidence.**</li>
+            <li>🏆 **Level Up as an Author!** – Achieve **Rising Star, Bestseller & Legend Ranks**!</li>
+            <li>💡 **Writing Prompts & Daily Inspiration** – Never run out of ideas!</li>
+        </ul>
+
+        <h2>🌟 Featured Novels (Updated Weekly)</h2>
+        <p>🏆 **#1 – Shadows of Fate** | ⭐ 4.9/5 (12,000+ Readers)</p>
+        <p>🔥 **#2 – The Celestial Wars** | ⭐ 4.7/5 (9,500+ Readers)</p>
+        <p>✨ **#3 – Into the Unknown** | ⭐ 4.6/5 (8,200+ Readers)</p>
+
+        <h2>📝 Community Highlights</h2>
+        <p>📣 **"Today's Writing Prompt" - Want a fun challenge? Try it out!**</p>
+        <p>💬 **Join the Discussion: How to Write Strong Female Leads!**</p>
+        <p>🎨 **Looking for a Cover Artist? Find one in our forums!**</p>
+
+        <h2>📝 Ready to Start Your Journey?</h2>
+        <p>Sign up today and take your first step towards becoming a great webnovel author!</p>
     </div>
 
-    <!-- 🔥 USER PROFILE (AFTER LOGIN) -->
-    <div class="locked" id="userProfile">
-        <h2>Welcome, <span id="username"></span>!</h2>
-        <p>📖 My Novels | ⭐ My Favorites | 📝 Account Settings</p>
-        <button onclick="logout()">Logout</button>
-    </div>
-
-    <!-- 🔥 MAIN CONTENT -->
-    <div class="locked" id="mainContent">
-        <nav>
-            <a href="index.html">🏠 Home</a> |
-            <a href="novels.html">📖 Novels</a> |
-            <a href="upload.html">📝 Upload</a> |
-            <a href="genres.html">🎭 Genres</a> |
-            <a href="search.html">🔍 Search</a> |
-            <a href="about.html">❓ About</a> |
-            <a href="contact.html">📩 Contact</a>
-        </nav>
-
-        <div class="container">
-            <h1>📚 The Ultimate Webnovel Community for Us Small Creators!</h1>
-            <p>
-                **Ved Webnovel Hub** is **not just a website—it's a home for writers!**  
-                A **safe space** for small content creators who dream of sharing their stories but feel unheard.  
-                This is a **family, a support system, and a journey for all of us**! 🚀
-            </p>
-        </div>
-    </div>
+    <!-- 🔥 LOGOUT BUTTON -->
+    <button class="logout-btn" onclick="logout()">Logout</button>
 
     <!-- 🔥 FOOTER -->
     <footer>
@@ -147,45 +151,20 @@
     </footer>
 
     <script>
-        // Secure user storage
-        let users = { "manhwotakunakama@gmail.com": "StrongPassword123" };
-
-        function openLogin() {
-            let email = prompt("Enter your email:");
-            let password = prompt("Enter your password:");
-
-            if (users[email] && users[email] === password) {
-                alert("✅ Login successful! Welcome!");
-                document.getElementById("mainContent").style.display = "block";
-                document.getElementById("userProfile").style.display = "block";
-                document.getElementById("authSection").style.display = "none";
-                document.getElementById("username").innerText = email.split('@')[0];
-            } else {
-                alert("❌ Incorrect login credentials!");
-            }
-        }
-
-        function openSignup() {
-            let email = prompt("Enter your email:");
-            let password = prompt("Create a password:");
-
-            if (users[email]) {
-                alert("❌ Email already registered! Try logging in.");
-            } else {
-                users[email] = password;
-                alert("✅ Account created! Now log in.");
-            }
+        // ✅ Check if user is logged in
+        if (localStorage.getItem("loggedIn") !== "true") {
+            window.location.href = "login.html"; // Redirect if not logged in
         }
 
         function logout() {
-            alert("You have logged out.");
-            document.getElementById("mainContent").style.display = "none";
-            document.getElementById("userProfile").style.display = "none";
-            document.getElementById("authSection").style.display = "block";
+            localStorage.removeItem("loggedIn"); // Remove login state
+            alert("👋 Logged out successfully!");
+            window.location.href = "login.html"; // Redirect to login page
         }
     </script>
 
 </body>
 </html>
+
 
 
