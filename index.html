@@ -61,8 +61,8 @@
             transition: 0.3s;
         }
         .settings-btn:hover {
-            text-shadow: 0 0 10px #facc15;
-            transform: scale(1.2);
+            text-shadow: 0 0 15px #facc15;
+            transform: scale(1.3);
         }
 
         /* 🔥 CONTENT CONTAINER */
@@ -91,7 +91,6 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .logout-btn:hover {
             background: darkred;
             transform: scale(1.05);
@@ -113,7 +112,7 @@
 
     <!-- 🔥 HEADER -->
     <header>
-        📚 VED WEBNOVEL HUB - A HOME FOR WRITERS & READERS
+        📚 VED WEBNOVEL HUB - A PLACE FOR SMALL CREATORS
     </header>
 
     <!-- 🔥 NAVBAR -->
@@ -129,33 +128,34 @@
 
     <!-- 🔥 CONTENT CONTAINER -->
     <div class="container">
-        <h1>📚 WELCOME TO VED WEBNOVEL HUB!</h1>
+        <h1>📚 WHY WE BUILT THIS PLACE</h1>
         <p>
-            This is a **community-driven webnovel platform** where **small authors and content creators** come together to **share, learn, and grow.**  
-            Whether you're a **writer looking for feedback** or a **reader searching for fresh, new stories**, this is **your new home!** 🚀
+            We are **not a big company.** We don’t have millions of books or an endless amount of readers.  
+            We are just **small authors** who love writing and want to create a space where **every writer matters.**  
+            If you're a writer **trying to grow,** or a reader **looking for something fresh,** this place is for **you.** 🚀
         </p>
 
-        <h2>📢 WHAT MAKES US SPECIAL?</h2>
+        <h2>📢 WHAT THIS PLACE OFFERS</h2>
         <ul>
-            <li>📖 **Write & Publish** - Upload your novels easily!</li>
-            <li>💬 **Community Support** - Get feedback & improve your writing.</li>
-            <li>🎭 **Multiple Genres** - Action, Fantasy, Romance, Sci-Fi & more!</li>
-            <li>🏆 **Achievements & Badges** - Unlock cool rewards as an author!</li>
-            <li>🚀 **Boost Your Novel** - Get featured & gain more readers!</li>
+            <li>📖 A **real community** where writers help each other.</li>
+            <li>💬 **Forums & Discussions** where authors can talk & learn.</li>
+            <li>🎭 **All Genres** - Action, Fantasy, Romance, Sci-Fi & more.</li>
+            <li>🏆 **Ranks & Badges** - To encourage & motivate small authors.</li>
+            <li>🚀 **A Place To Start** - You don’t need to be famous to belong here.</li>
         </ul>
 
-        <h2>🌟 FEATURED NOVELS (WEEKLY HIGHLIGHTS)</h2>
-        <p>🏆 <b>#1 – The Legend of Elysium</b> | ⭐ 4.9/5 (10,500+ Readers)</p>
-        <p>🔥 <b>#2 – Cybernetic Dreams</b> | ⭐ 4.7/5 (8,200+ Readers)</p>
-        <p>✨ <b>#3 – Arcane Chronicles</b> | ⭐ 4.6/5 (7,900+ Readers)</p>
+        <h2>🌟 FEATURED NOVELS</h2>
+        <div id="featured-novels">
+            <p>📢 No novels yet! First uploads will be featured here. **Coming Soon...**</p>
+        </div>
 
         <h2>📝 COMMUNITY HIGHLIGHTS</h2>
-        <p>📣 <b>Writing Challenge:</b> "Create a Villain More Interesting Than the Hero!"</p>
-        <p>💬 <b>Forum Discussion:</b> "How Do You Build a Realistic Fantasy World?"</p>
-        <p>🎨 <b>Need a Cover?</b> Check out our recommended artists!</p>
+        <p>📣 **Today's Writing Challenge:** "Write a story where the villain wins."</p>
+        <p>💬 **Discussion:** "Is writing talent or just practice?"</p>
+        <p>🎨 **Looking for a Cover?** Check out recommended artists!</p>
 
         <h2>📝 READY TO START?</h2>
-        <p>Sign up today and take your first step towards **becoming a top-tier webnovel author!**</p>
+        <p>Sign up today and be part of **something real.**</p>
     </div>
 
     <!-- 🔥 LOGOUT BUTTON -->
@@ -167,25 +167,23 @@
     </footer>
 
     <script>
-        // ✅ Check if user is logged in
-        if (localStorage.getItem("loggedIn") !== "true") {
-            window.location.href = "login.html"; // Redirect if not logged in
-        }
+        // ✅ Login check (redirects if not logged in)
+        document.addEventListener("DOMContentLoaded", function () {
+            if (!localStorage.getItem("loggedIn")) {
+                window.location.href = "login.html";
+            }
+        });
 
         function logout() {
-            localStorage.removeItem("loggedIn"); // Remove login state
+            localStorage.removeItem("loggedIn");
             alert("👋 Logged out successfully!");
-            window.location.href = "login.html"; // Redirect to login page
+            window.location.href = "login.html";
         }
 
         function goToSettings() {
-            window.location.href = "settings.html"; // Redirect to settings page
+            window.location.href = "settings.html";
         }
     </script>
 
 </body>
-    </html>
-
-
-
-
+</html>
