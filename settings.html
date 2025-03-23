@@ -27,6 +27,24 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
+        /* 🔥 NAVBAR */
+        nav {
+            background: #292929;
+            padding: 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #facc15;
+            text-shadow: 0 0 10px #facc15;
+            transform: scale(1.1);
+        }
+
         /* 🔥 SETTINGS CONTAINER */
         .settings-container {
             max-width: 800px;
@@ -85,10 +103,23 @@
 </head>
 <body>
 
+    <!-- 🔥 HEADER -->
     <header>
         ⚙ User Settings | Ved Webnovel Hub
     </header>
 
+    <!-- 🔥 NAVBAR (Links to All Main Pages) -->
+    <nav>
+        <a href="index.html"><b>🏠 HOME</b></a> |
+        <a href="novels.html"><b>📖 NOVELS</b></a> |
+        <a href="upload.html"><b>📝 UPLOAD</b></a> |
+        <a href="genres.html"><b>🎭 GENRES</b></a> |
+        <a href="search.html"><b>🔍 SEARCH</b></a> |
+        <a href="about.html"><b>❓ ABOUT</b></a> |
+        <a href="contact.html"><b>📩 CONTACT</b></a>
+    </nav>
+
+    <!-- 🔥 SETTINGS CONTAINER -->
     <div class="settings-container">
         <h2>👤 Profile Settings</h2>
         <label for="username">Username:</label>
@@ -152,25 +183,16 @@
     </div>
 
     <script>
-        function saveProfile() {
-            alert("✅ Profile updated!");
-        }
-
-        function saveUI() {
-            alert("✅ UI settings saved!");
-        }
-
-        function saveSecurity() {
-            alert("✅ Security settings updated!");
-        }
-
-        function saveNotifications() {
-            alert("✅ Notification preferences saved!");
-        }
-
-        function viewBookmarks() {
-            alert("📚 Opening saved novels...");
-        }
+        // ✅ Load saved settings on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("username").value = localStorage.getItem("username") || "";
+            document.getElementById("bio").value = localStorage.getItem("bio") || "";
+            document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
+            document.getElementById("font-size").value = localStorage.getItem("font-size") || "medium";
+            document.getElementById("visibility").value = localStorage.getItem("visibility") || "public";
+            document.getElementById("email-notif").checked = localStorage.getItem("email-notif") === "true";
+            document.getElementById("web-notif").checked = localStorage.getItem("web-notif") === "true";
+        });
 
         function goToDashboard() {
             window.location.href = "dashboard.html";
@@ -185,6 +207,7 @@
         function deleteAccount() {
             let confirmDelete = confirm("⚠️ Are you sure you want to delete your account? This action cannot be undone!");
             if (confirmDelete) {
+                localStorage.clear();
                 alert("💀 Account deleted!");
                 window.location.href = "signup.html";
             }
