@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Ved Webnovel Hub - Home</title>
+    <title>📚 Ved Webnovel Hub - The Bag of Books</title>
     <style>
-        /* 🔥 GLOBAL STYLES - Dark Mode, Smooth Fonts */
+        /* 🔥 GLOBAL STYLES */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #111, #222); /* Dark Gradient */
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
             color: white;
             margin: 0;
             padding: 0;
             animation: fadeIn 1s ease-in;
         }
 
-        /* 🔥 HEADER - Animated Glowing Effect */
+        /* 🔥 HEADER */
         header {
             background: #181818;
-            padding: 20px;
-            font-size: 24px;
+            padding: 25px;
+            font-size: 30px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -28,11 +28,11 @@
         }
 
         @keyframes glowEffect {
-            0% { text-shadow: 0 0 10px #facc15; }
-            100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
+            0% { text-shadow: 0 0 15px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
         }
 
-        /* 🔥 NAVBAR - Modern Hover Effect */
+        /* 🔥 NAVBAR */
         nav {
             background: #292929;
             padding: 12px;
@@ -40,92 +40,44 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 18px;
             font-size: 18px;
             transition: 0.3s;
         }
         nav a:hover {
             color: #facc15;
-            text-shadow: 0 0 8px #facc15;
+            text-shadow: 0 0 10px #facc15;
             transform: scale(1.1);
         }
 
-        /* 🔥 CONTAINER - Beautifully Framed Content */
-        .container {
-            margin: 30px auto;
-            max-width: 800px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            animation: slideIn 1s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 🔥 SEARCH BAR - Glowing Border on Focus */
-        .search-bar input {
-            width: 60%;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #555;
-            transition: all 0.3s;
-        }
-        .search-bar input:focus {
-            border: 1px solid #facc15;
-            box-shadow: 0 0 10px #facc15;
-            outline: none;
-        }
-        .search-bar button {
-            padding: 12px 15px;
-            font-size: 16px;
-            background: #facc15;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .search-bar button:hover {
-            background: #e0b712;
-            transform: scale(1.1);
-        }
-
-        /* 🔥 LOGIN & SIGNUP BUTTONS - Smooth Hover Animation */
+        /* 🔥 LOGIN & SIGNUP BUTTONS */
         .auth-buttons button {
             background: #facc15;
             border: none;
-            padding: 10px 15px;
+            padding: 12px 18px;
             margin-left: 10px;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 6px;
             transition: 0.3s;
         }
+
         .auth-buttons button:hover {
             background: #e0b712;
             transform: scale(1.1);
         }
 
-        /* 🔥 RATING & FAVORITES - Interactive Look */
-        .favorites, .rating-system {
-            margin-top: 30px;
-        }
-        .rating-system select {
-            font-size: 16px;
-            padding: 5px;
-            border-radius: 5px;
+        /* 🔥 LOCKED CONTENT */
+        .locked {
+            display: none;
         }
 
         /* 🔥 FOOTER */
         footer {
             background: #111;
-            padding: 15px;
+            padding: 18px;
             font-size: 14px;
-            margin-top: 30px;
+            margin-top: 35px;
         }
     </style>
 </head>
@@ -133,55 +85,41 @@
 
     <!-- 🔥 HEADER -->
     <header>
-        Welcome to Ved Webnovel Hub!
+        📚 Welcome to Ved Webnovel Hub - The Bag of Books!
     </header>
 
-    <!-- 🔥 NAVBAR -->
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="novels.html">📖 Novels</a> |
-        <a href="upload.html">📝 Upload</a> |
-        <a href="genres.html">🎭 Genres</a> |
-        <a href="search.html">🔍 Search</a> |
-        <a href="about.html">❓ About</a> |
-        <a href="contact.html">📩 Contact</a>
-    </nav>
-
-    <!-- 🔥 AUTH BUTTONS -->
-    <div class="auth-buttons">
-        <button onclick="login()">Login</button>
-        <button onclick="signup()">Sign Up</button>
+    <!-- 🔥 AUTH BUTTONS (FOR LOGIN) -->
+    <div class="auth-buttons" id="authSection">
+        <button onclick="openSignup()">Sign Up</button>
+        <button onclick="openLogin()">Login</button>
     </div>
 
-    <!-- 🔥 CONTENT CONTAINER -->
-    <div class="container">
-        <h1>📚 Find the Story that You like from the Bag of Stories!</h1>
-        <p>Read, upload, and explore stories from passionate writers around the world.</p>
+    <!-- 🔥 USER PROFILE SECTION (AFTER LOGIN) -->
+    <div class="locked" id="userProfile">
+        <h2>Welcome, <span id="username"></span>!</h2>
+        <p>📖 My Novels | ⭐ My Favorites | 📝 Account Settings</p>
+        <button onclick="logout()">Logout</button>
+    </div>
 
-        <!-- 🔥 SEARCH BAR -->
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search for novels...">
-            <button onclick="searchNovel()">🔍 Search</button>
-        </div>
+    <!-- 🔥 MAIN CONTENT -->
+    <div class="locked" id="mainContent">
+        <nav>
+            <a href="index.html">🏠 Home</a> |
+            <a href="novels.html">📖 Novels</a> |
+            <a href="upload.html">📝 Upload</a> |
+            <a href="genres.html">🎭 Genres</a> |
+            <a href="search.html">🔍 Search</a> |
+            <a href="about.html">❓ About</a> |
+            <a href="contact.html">📩 Contact</a>
+        </nav>
 
-        <!-- 🔥 FAVORITES SECTION -->
-        <div class="favorites">
-            <h2>🌟 Favorite Novels</h2>
-            <button onclick="addToFavorites()">📌 Add to Favorites</button>
-            <ul id="favoritesList"></ul>
-        </div>
-
-        <!-- 🔥 RATING SYSTEM -->
-        <div class="rating-system">
-            <h2>⭐ Rate This Website</h2>
-            <select id="rating">
-                <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
-                <option value="4">⭐⭐⭐⭐ - Great</option>
-                <option value="3">⭐⭐⭐ - Good</option>
-                <option value="2">⭐⭐ - Okay</option>
-                <option value="1">⭐ - Needs Improvement</option>
-            </select>
-            <button onclick="submitRating()">Submit Rating</button>
+        <div class="container">
+            <h1>📚 The Ultimate Webnovel Community for Small Creators!</h1>
+            <p>
+                **Ved Webnovel Hub** is **not just a website—it's a home for writers!**  
+                A **safe space** for small content creators who dream of sharing their stories but feel unheard.  
+                This is a **family, a support system, and a journey for all of us**! 🚀
+            </p>
         </div>
     </div>
 
@@ -191,31 +129,45 @@
     </footer>
 
     <script>
-        function searchNovel() {
-            let query = document.getElementById('searchInput').value;
-            if (query.trim() !== '') {
-                window.location.href = "search.html?query=" + encodeURIComponent(query);
+        // Dummy user database
+        let users = {};
+
+        function openSignup() {
+            let username = prompt("Choose a username:");
+            let email = prompt("Enter your email:");
+            let password = prompt("Create a password:");
+
+            if (users[username]) {
+                alert("❌ Username already exists! Choose another.");
             } else {
-                alert('Please enter a search term.');
+                users[username] = { email, password };
+                alert("✅ Account created successfully! Now log in.");
             }
         }
-        function login() { alert('Login feature coming soon!'); }
-        function signup() { alert('Signup feature coming soon!'); }
-        function addToFavorites() {
-            let title = prompt('Enter novel name to add to favorites:');
-            if (title) {
-                let list = document.getElementById('favoritesList');
-                let listItem = document.createElement('li');
-                listItem.textContent = title;
-                list.appendChild(listItem);
-                alert(title + ' added to favorites!');
+
+        function openLogin() {
+            let username = prompt("Enter your username:");
+            let password = prompt("Enter your password:");
+
+            if (users[username] && users[username].password === password) {
+                alert("✅ Login successful! Welcome, " + username + "!");
+                document.getElementById("mainContent").style.display = "block";
+                document.getElementById("userProfile").style.display = "block";
+                document.getElementById("authSection").style.display = "none";
+                document.getElementById("username").innerText = username;
+            } else {
+                alert("❌ Incorrect login credentials!");
             }
         }
-        function submitRating() {
-            let rating = document.getElementById('rating').value;
-            alert('Thanks for rating us ' + rating + ' stars!');
+
+        function logout() {
+            alert("You have logged out.");
+            document.getElementById("mainContent").style.display = "none";
+            document.getElementById("userProfile").style.display = "none";
+            document.getElementById("authSection").style.display = "block";
         }
     </script>
 
 </body>
 </html>
+
