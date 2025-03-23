@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙ User Settings | Ved Webnovel Hub</title>
+    <style>
+        /* 🔥 GLOBAL STYLES */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            color: white;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* 🔥 HEADER */
+        header {
+            background: #181818;
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* 🔥 SETTINGS CONTAINER */
+        .settings-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+
+        h2 {
+            color: #facc15;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background: #facc15;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #d4a60b;
+            transform: scale(1.05);
+        }
+
+        .danger-btn {
+            background: red;
+            color: white;
+        }
+
+        .danger-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        ⚙ User Settings | Ved Webnovel Hub
+    </header>
+
+    <div class="settings-container">
+        <h2>👤 Profile Settings</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username">
+        
+        <label for="bio">Bio:</label>
+        <textarea id="bio" placeholder="Tell something about yourself..."></textarea>
+
+        <label for="profile-pic">Profile Picture:</label>
+        <input type="file" id="profile-pic">
+
+        <button onclick="saveProfile()">Save Profile</button>
+
+        <h2>🎨 Theme & UI</h2>
+        <label for="theme">Theme:</label>
+        <select id="theme">
+            <option value="dark">Dark Mode</option>
+            <option value="light">Light Mode</option>
+        </select>
+
+        <label for="font-size">Font Size:</label>
+        <select id="font-size">
+            <option value="small">Small</option>
+            <option value="medium" selected>Medium</option>
+            <option value="large">Large</option>
+        </select>
+
+        <button onclick="saveUI()">Save Preferences</button>
+
+        <h2>🔒 Privacy & Security</h2>
+        <label for="password">Change Password:</label>
+        <input type="password" id="password" placeholder="New password">
+
+        <label for="visibility">Profile Visibility:</label>
+        <select id="visibility">
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        </select>
+
+        <button onclick="saveSecurity()">Save Security Settings</button>
+
+        <h2>📢 Notifications</h2>
+        <label for="email-notif">
+            <input type="checkbox" id="email-notif"> Receive Email Notifications
+        </label>
+        <label for="web-notif">
+            <input type="checkbox" id="web-notif"> Receive In-Site Notifications
+        </label>
+
+        <button onclick="saveNotifications()">Save Notification Settings</button>
+
+        <h2>📚 Reading & Bookmarks</h2>
+        <button onclick="viewBookmarks()">View Saved Novels</button>
+
+        <h2>📝 Author Dashboard (For Authors)</h2>
+        <button onclick="goToDashboard()">Go to Dashboard</button>
+
+        <h2>⚠️ Account Actions</h2>
+        <button class="danger-btn" onclick="deleteAccount()">Delete Account</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function saveProfile() {
+            alert("✅ Profile updated!");
+        }
+
+        function saveUI() {
+            alert("✅ UI settings saved!");
+        }
+
+        function saveSecurity() {
+            alert("✅ Security settings updated!");
+        }
+
+        function saveNotifications() {
+            alert("✅ Notification preferences saved!");
+        }
+
+        function viewBookmarks() {
+            alert("📚 Opening saved novels...");
+        }
+
+        function goToDashboard() {
+            window.location.href = "dashboard.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            alert("👋 Logged out successfully!");
+            window.location.href = "login.html";
+        }
+
+        function deleteAccount() {
+            let confirmDelete = confirm("⚠️ Are you sure you want to delete your account? This action cannot be undone!");
+            if (confirmDelete) {
+                alert("💀 Account deleted!");
+                window.location.href = "signup.html";
+            }
+        }
+    </script>
+
+</body>
+</html>
