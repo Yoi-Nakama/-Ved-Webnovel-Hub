@@ -50,18 +50,20 @@
             transform: scale(1.1);
         }
 
-        /* 🔥 LOGIN & SIGNUP BUTTONS */
+        /* 🔥 AUTH BUTTONS */
+        .auth-buttons {
+            margin: 20px;
+        }
         .auth-buttons button {
             background: #facc15;
             border: none;
             padding: 12px 18px;
-            margin-left: 10px;
+            margin: 10px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 6px;
             transition: 0.3s;
         }
-
         .auth-buttons button:hover {
             background: #e0b712;
             transform: scale(1.1);
@@ -70,6 +72,22 @@
         /* 🔥 LOCKED CONTENT */
         .locked {
             display: none;
+        }
+
+        /* 🔥 CONTENT CONTAINER */
+        .container {
+            margin: 30px auto;
+            max-width: 950px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* 🔥 FOOTER */
@@ -88,13 +106,13 @@
         📚 Welcome to Ved Webnovel Hub - The Bag of Books!
     </header>
 
-    <!-- 🔥 AUTH BUTTONS (FOR LOGIN) -->
+    <!-- 🔥 AUTH SECTION (LOGIN REQUIRED) -->
     <div class="auth-buttons" id="authSection">
-        <button onclick="openSignup()">Sign Up</button>
         <button onclick="openLogin()">Login</button>
+        <button onclick="openSignup()">Sign Up</button>
     </div>
 
-    <!-- 🔥 USER PROFILE SECTION (AFTER LOGIN) -->
+    <!-- 🔥 USER PROFILE (AFTER LOGIN) -->
     <div class="locked" id="userProfile">
         <h2>Welcome, <span id="username"></span>!</h2>
         <p>📖 My Novels | ⭐ My Favorites | 📝 Account Settings</p>
@@ -114,7 +132,7 @@
         </nav>
 
         <div class="container">
-            <h1>📚 The Ultimate Webnovel Community for Small Creators!</h1>
+            <h1>📚 The Ultimate Webnovel Community for Us Small Creators!</h1>
             <p>
                 **Ved Webnovel Hub** is **not just a website—it's a home for writers!**  
                 A **safe space** for small content creators who dream of sharing their stories but feel unheard.  
@@ -129,34 +147,33 @@
     </footer>
 
     <script>
-        // Dummy user database
-        let users = {};
-
-        function openSignup() {
-            let username = prompt("Choose a username:");
-            let email = prompt("Enter your email:");
-            let password = prompt("Create a password:");
-
-            if (users[username]) {
-                alert("❌ Username already exists! Choose another.");
-            } else {
-                users[username] = { email, password };
-                alert("✅ Account created successfully! Now log in.");
-            }
-        }
+        // Secure user storage
+        let users = { "manhwotakunakama@gmail.com": "StrongPassword123" };
 
         function openLogin() {
-            let username = prompt("Enter your username:");
+            let email = prompt("Enter your email:");
             let password = prompt("Enter your password:");
 
-            if (users[username] && users[username].password === password) {
-                alert("✅ Login successful! Welcome, " + username + "!");
+            if (users[email] && users[email] === password) {
+                alert("✅ Login successful! Welcome!");
                 document.getElementById("mainContent").style.display = "block";
                 document.getElementById("userProfile").style.display = "block";
                 document.getElementById("authSection").style.display = "none";
-                document.getElementById("username").innerText = username;
+                document.getElementById("username").innerText = email.split('@')[0];
             } else {
                 alert("❌ Incorrect login credentials!");
+            }
+        }
+
+        function openSignup() {
+            let email = prompt("Enter your email:");
+            let password = prompt("Create a password:");
+
+            if (users[email]) {
+                alert("❌ Email already registered! Try logging in.");
+            } else {
+                users[email] = password;
+                alert("✅ Account created! Now log in.");
             }
         }
 
@@ -170,4 +187,5 @@
 
 </body>
 </html>
+
 
