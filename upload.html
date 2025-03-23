@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📝 Upload Your Novel - Ved Webnovel Hub</title>
     <style>
-        /* 🔥 GLOBAL STYLES - Dark Mode, Smooth Fonts */
+        /* 🔥 GLOBAL STYLES */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -50,7 +50,7 @@
             transform: scale(1.1);
         }
 
-        /* 🔥 FORM CONTAINER */
+        /* 🔥 UPLOAD FORM CONTAINER */
         .upload-container {
             margin: 30px auto;
             max-width: 700px;
@@ -85,7 +85,7 @@
             outline: none;
         }
 
-        /* 🔥 SUBMIT BUTTON */
+        /* 🔥 BUTTONS */
         button {
             padding: 12px 15px;
             font-size: 16px;
@@ -108,6 +108,27 @@
             padding: 15px;
             font-size: 14px;
             margin-top: 30px;
+        }
+
+        /* 🔥 PREVIEW SECTION */
+        .preview-container {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        /* 🔥 FILE UPLOAD STYLING */
+        .file-input {
+            border: 2px dashed #facc15;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .file-input:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -156,10 +177,13 @@
             </select>
 
             <label for="description">📝 Short Description:</label>
-            <textarea id="description" placeholder="Write a short description of your novel..." required></textarea>
+            <textarea id="description" placeholder="Write a short description of your novel..." maxlength="500" required></textarea>
 
-            <label for="uploadFile">📂 Upload Novel (PDF/DOCX):</label>
-            <input type="file" id="uploadFile" accept=".pdf,.docx" required>
+            <label for="coverUpload">📸 Upload Cover Image:</label>
+            <input type="file" id="coverUpload" accept="image/png, image/jpeg">
+
+            <label for="uploadFile">📂 Upload Novel (PDF/DOCX/TXT):</label>
+            <input type="file" id="uploadFile" accept=".pdf,.docx,.txt" required>
 
             <button type="submit">📤 Upload Novel</button>
         </form>
@@ -178,21 +202,12 @@
             
             let authorName = document.getElementById("authorName").value;
             let novelTitle = document.getElementById("novelTitle").value;
-            let genre = document.getElementById("genre").value;
-            let description = document.getElementById("description").value;
             let file = document.getElementById("uploadFile").files[0];
 
             if (!file) {
                 alert("Please upload a novel file.");
                 return;
             }
-
-            let formData = new FormData();
-            formData.append("authorName", authorName);
-            formData.append("novelTitle", novelTitle);
-            formData.append("genre", genre);
-            formData.append("description", description);
-            formData.append("file", file);
 
             document.getElementById("uploadStatus").innerText = "Uploading...";
 
@@ -205,3 +220,4 @@
 
 </body>
 </html>
+
