@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚙ User Settings | Ved Webnovel Hub</title>
     <style>
-        /* 🔥 GLOBAL STYLES */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -16,17 +15,13 @@
             transition: 0.3s;
         }
 
-        /* 🔥 HEADER */
         header {
             background: #181818;
             padding: 20px;
             font-size: 28px;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        /* 🔥 NAVBAR */
         nav {
             background: #292929;
             padding: 12px;
@@ -38,7 +33,6 @@
             font-size: 18px;
         }
 
-        /* 🔥 SETTINGS CONTAINER */
         .settings-container {
             max-width: 800px;
             margin: 30px auto;
@@ -76,7 +70,6 @@
             cursor: pointer;
         }
 
-        /* Profile Picture Preview */
         #profile-preview {
             width: 80px;
             height: 80px;
@@ -121,48 +114,14 @@
         </select>
 
         <button onclick="saveUI()">Save Preferences</button>
-
-        <h2>📧 Account Settings</h2>
-        <label>Change Email:</label>
-        <input type="email" id="email">
-
-        <label>Change Password:</label>
-        <input type="password" id="password">
-
-        <button onclick="saveAccount()">Save Account Changes</button>
-
-        <h2>🌍 Language & Reading</h2>
-        <label>Language:</label>
-        <select id="language">
-            <option>English</option>
-            <option>Hindi</option>
-            <option>Spanish</option>
-        </select>
-
-        <label>Preferred Genre:</label>
-        <select id="genre">
-            <option>Action</option>
-            <option>Fantasy</option>
-            <option>Sci-Fi</option>
-        </select>
-
-        <button onclick="savePreferences()">Save Preferences</button>
-
-        <h2>⚠️ Account Actions</h2>
-        <button onclick="logout()">Logout</button>
     </div>
 
     <script>
-        // ✅ Load saved settings
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("username").value = localStorage.getItem("username") || "";
             document.getElementById("bio").value = localStorage.getItem("bio") || "";
             document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
-            document.getElementById("email").value = localStorage.getItem("email") || "";
-            document.getElementById("language").value = localStorage.getItem("language") || "English";
-            document.getElementById("genre").value = localStorage.getItem("genre") || "Action";
             
-            // Profile Picture Load
             let profilePic = localStorage.getItem("profile-pic");
             if (profilePic) {
                 document.getElementById("profile-preview").src = profilePic;
@@ -189,24 +148,6 @@
             document.body.style.color = localStorage.getItem("theme") === "light" ? "black" : "white";
         }
 
-        function saveAccount() {
-            localStorage.setItem("email", document.getElementById("email").value);
-            alert("✅ Account changes saved!");
-        }
-
-        function savePreferences() {
-            localStorage.setItem("language", document.getElementById("language").value);
-            localStorage.setItem("genre", document.getElementById("genre").value);
-            alert("✅ Preferences saved!");
-        }
-
-        function logout() {
-            localStorage.clear();
-            alert("👋 Logged out successfully!");
-            window.location.href = "login.html";
-        }
-
-        // ✅ Profile Picture Upload
         document.getElementById("profile-pic").addEventListener("change", function(event) {
             let reader = new FileReader();
             reader.onload = function(e) {
