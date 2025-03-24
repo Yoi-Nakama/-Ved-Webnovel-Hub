@@ -1,9 +1,147 @@
+<?php 
+// Database connection (ensure this file contains the proper connection details)
+require_once 'db_connection.php';
+
+// Check if user is trying to register
+if (isset($_POST['register'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    // Email validation
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format!";
+        exit;
+    }
+
+    // Password validation (strong password policy)
+    if (strlen($password) < 8) {
+        echo "Password must be at least 8 characters long!";
+        exit;
+    }
+    if (!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password) || !preg_match("/[\W_]/", $password)) {
+        echo "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!";
+        exit;
+    }
+
+    // Password match check
+    if ($password !== $confirm_password) {
+        echo "Passwords do not match!";
+        exit;
+    }
+
+    // Check if email already exists in database
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    if ($stmt->rowCount() > 0) {
+        echo "Email already registered!";
+        exit;
+    }
+
+    // Hash password before storing
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Generate a unique token for email verification
+    $token = bin2hex(random_bytes(16));
+    $verification_link = "http://yourwebsite.com/verify_email.php?token=" . $token;
+
+    // Insert user into database
+    $stmt = $pdo->prepare("INSERT INTO users (email, password, verification_token, is_verified) VALUES (?, ?, ?, ?)");
+    if ($stmt->execute([$email, $hashed_password, $token, 0])) {
+        // Send verification email
+        mail($email, "Email Verification", "Please verify your email by clicking on the following link: " . $verification_link);
+
+        echo "Registration successful. Please check your email to verify your account!";
+    } else {
+        echo "Something went wrong, please try again!";
+    }
+}
+
+// Check if user is trying to login
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format!";
+        exit;
+    }
+
+    // Retrieve user details from database
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
+
+    if ($user) {
+        // Check if email is verified
+        if ($user['is_verified'] == 0) {
+            echo "Please verify your email before logging in!";
+            exit;
+        }
+
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            // Start session and set session variables
+            session_start();
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['email'] = $user['email'];
+
+            // Redirect to dashboard or main page
+            header("Location: dashboard.php");
+            exit;
+        } else {
+            echo "Incorrect password!";
+            exit;
+        }
+    } else {
+        echo "User not found!";
+        exit;
+    }
+}
+
+// Password reset functionality (optional feature)
+if (isset($_POST['reset_password'])) {
+    $email = $_POST['email'];
+    
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format!";
+        exit;
+    }
+
+    // Check if email exists
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
+
+    if ($user) {
+        // Generate a unique token for password reset
+        $token = bin2hex(random_bytes(16));
+        $reset_link = "http://yourwebsite.com/reset_password.php?token=" . $token;
+
+        // Store the reset token in the database (with expiration time)
+        $stmt = $pdo->prepare("UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?");
+        $expiry_time = time() + 3600; // Token expires in 1 hour
+        $stmt->execute([$token, $expiry_time, $email]);
+
+        // Send password reset email
+        mail($email, "Password Reset", "You can reset your password by clicking on the following link: " . $reset_link);
+
+        echo "Password reset email sent!";
+    } else {
+        echo "Email not found!";
+        exit;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 VED WEBNOVEL HUB - LOGIN</title>
+    <title>📚 VED WEBNOVEL HUB - JOIN US!</title>
     <style>
         /* 🔥 GLOBAL STYLES */
         body {
@@ -50,42 +188,37 @@
             transform: scale(1.1);
         }
 
-        /* 🔥 LOGIN FORM */
-        .login-container {
-            margin: 30px auto;
-            max-width: 450px;
-            padding: 30px;
+        /* 🔥 MAIN CONTENT AREA */
+        .container {
+            margin: 50px auto;
+            max-width: 950px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
             animation: slideIn 1s ease-in-out;
         }
 
-        .login-container input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 6px;
-            border: none;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .login-btn {
+        /* 🔥 CALL-TO-ACTION BUTTONS */
+        .cta-btn {
             background: #facc15;
-            color: black;
-            padding: 12px 18px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
+            color: #0c0c0c;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 22px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 20px;
             transition: 0.3s;
-            width: 100%;
         }
-
-        .login-btn:hover {
-            background: #e4c400;
-            transform: scale(1.05);
+        .cta-btn:hover {
+            background: #ffcb00;
+            transform: scale(1.1);
         }
 
         /* 🔥 FOOTER */
@@ -96,78 +229,74 @@
             margin-top: 35px;
         }
 
-        /* 🔥 SIGN UP AND SIGN IN LINKS */
-        .signup-signin-links {
-            margin-top: 15px;
+        /* 🔥 FORM STYLES */
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            margin: 20px auto;
+            max-width: 500px;
         }
 
-        .signup-signin-links a {
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #fff;
             color: white;
-            text-decoration: none;
-            margin: 0 12px;
-            font-size: 16px;
+            background: #333;
         }
 
-        .signup-signin-links a:hover {
-            color: #facc15;
-            text-shadow: 0 0 10px #facc15;
-            transform: scale(1.1);
+        input[type="submit"] {
+            background: #facc15;
+            color: #0c0c0c;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #ffcb00;
         }
     </style>
 </head>
 <body>
 
-    <!-- 🔥 HEADER -->
-    <header>
-        📚 VED WEBNOVEL HUB - LOGIN
-    </header>
+<header>VED WEBNOVEL HUB - JOIN US!</header>
 
-    <!-- 🔥 NAVBAR -->
-    <nav>
-        <a href="index.html"><b>🏠 HOME</b></a> |
-        <a href="novels.html"><b>📖 NOVELS</b></a> |
-        <a href="upload.html"><b>📝 UPLOAD</b></a> |
-        <a href="genres.html"><b>🎭 GENRES</b></a> |
-        <a href="search.html"><b>🔍 SEARCH</b></a> |
-        <a href="about.html"><b>❓ ABOUT</b></a> |
-        <a href="contact.html"><b>📩 CONTACT</b></a>
-    </nav>
+<nav>
+    <a href="home.php">Home</a>
+    <a href="about.php">About</a>
+    <a href="contact.php">Contact</a>
+</nav>
 
-    <!-- 🔥 LOGIN FORM CONTAINER -->
-    <div class="login-container">
-        <h1>Login to Your Account</h1>
-        <form id="loginForm" action="javascript:void(0)">
-            <input type="email" id="loginEmail" placeholder="Enter your email" required>
-            <input type="password" id="loginPassword" placeholder="Enter your password" required>
-            <button type="submit" class="login-btn">Login</button>
+<div class="container">
+    <!-- Registration Form -->
+    <div class="form-container">
+        <h2>Sign Up</h2>
+        <form method="POST">
+            <input type="email" name="email" required placeholder="Enter your email">
+            <input type="password" name="password" required placeholder="Create a password">
+            <input type="password" name="confirm_password" required placeholder="Confirm your password">
+            <input type="submit" name="register" value="Register">
         </form>
-
-        <!-- 🔥 SIGN UP & SIGN IN LINKS -->
-        <div class="signup-signin-links">
-            <p>Don't have an account? <a href="signup.html">Sign Up</a> | Already have an account? <a href="signin.html">Sign In</a></p>
-        </div>
     </div>
 
-    <!-- 🔥 FOOTER -->
-    <footer>
-        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
-    </footer>
+    <!-- Login Form -->
+    <div class="form-container">
+        <h2>Login</h2>
+        <form method="POST">
+            <input type="email" name="email" required placeholder="Enter your email">
+            <input type="password" name="password" required placeholder="Enter your password">
+            <input type="submit" name="login" value="Login">
+        </form>
+    </div>
+</div>
 
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function() {
-            // Here you would typically handle form submission for logging in
-            const email = document.getElementById("loginEmail").value;
-            const password = document.getElementById("loginPassword").value;
-            if (email && password) {
-                // You would usually send the credentials to the server to validate
-                localStorage.setItem("loggedIn", true);  // Simulating login
-                alert("Successfully logged in!");
-                window.location.href = "home.html";  // Redirect to the homepage or dashboard
-            } else {
-                alert("Please fill in both fields!");
-            }
-        });
-    </script>
+<footer> 
+    <p>&copy; 2025 VED Webnovel Hub. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
