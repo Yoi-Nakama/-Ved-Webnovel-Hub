@@ -1,1 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Sign Up | Ved Web Novel</title>
+    <style>
+        /* 🔥 GLOBAL STYLES */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            color: white;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
 
+        /* 🔥 HEADER */
+        header {
+            background: #181818;
+            padding: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 15px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
+        }
+
+        /* 🔥 FORM CONTAINER */
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #292929;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 200, 21, 0.3);
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #181818;
+            color: white;
+            outline: none;
+        }
+
+        button {
+            background-color: #facc15;
+            color: black;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #e6b800;
+            transform: scale(1.05);
+        }
+
+        a {
+            color: #facc15;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            text-shadow: 0 0 10px #facc15;
+        }
+    </style>
+</head>
+<body>
+
+    <header>🔥 Create an Account</header>
+
+    <div class="container">
+        <input type="text" id="username" placeholder="Enter your username">
+        <input type="email" id="email" placeholder="Enter your email">
+        <input type="password" id="password" placeholder="Enter your password">
+        <button onclick="signUp()">Sign Up</button>
+        <p>Already have an account? <a href="signin.html">Sign in</a></p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBviXBuWeEQrPny6BFQsUTrHZjwPuyvEPo",
+            authDomain: "vedwebnovel.firebaseapp.com",
+            projectId: "vedwebnovel",
+            storageBucket: "vedwebnovel.firebasestorage.app",
+            messagingSenderId: "542714134112",
+            appId: "1:542714134112:web:93559ebbcc9a68b8394d05"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        function signUp() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    return updateProfile(userCredential.user, { displayName: username });
+                })
+                .then(() => {
+                    alert("Account created successfully! Welcome!");
+                    window.location.href = "index.html";
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                });
+        }
+    </script>
+
+</body>
+  </html>
+                                            
