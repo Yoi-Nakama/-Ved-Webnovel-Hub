@@ -1,147 +1,9 @@
-<?php 
-// Database connection (ensure this file contains the proper connection details)
-require_once 'db_connection.php';
-
-// Check if user is trying to register
-if (isset($_POST['register'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
-
-    // Email validation
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format!";
-        exit;
-    }
-
-    // Password validation (strong password policy)
-    if (strlen($password) < 8) {
-        echo "Password must be at least 8 characters long!";
-        exit;
-    }
-    if (!preg_match("/[A-Z]/", $password) || !preg_match("/[a-z]/", $password) || !preg_match("/[0-9]/", $password) || !preg_match("/[\W_]/", $password)) {
-        echo "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!";
-        exit;
-    }
-
-    // Password match check
-    if ($password !== $confirm_password) {
-        echo "Passwords do not match!";
-        exit;
-    }
-
-    // Check if email already exists in database
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    if ($stmt->rowCount() > 0) {
-        echo "Email already registered!";
-        exit;
-    }
-
-    // Hash password before storing
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Generate a unique token for email verification
-    $token = bin2hex(random_bytes(16));
-    $verification_link = "http://yourwebsite.com/verify_email.php?token=" . $token;
-
-    // Insert user into database
-    $stmt = $pdo->prepare("INSERT INTO users (email, password, verification_token, is_verified) VALUES (?, ?, ?, ?)");
-    if ($stmt->execute([$email, $hashed_password, $token, 0])) {
-        // Send verification email
-        mail($email, "Email Verification", "Please verify your email by clicking on the following link: " . $verification_link);
-
-        echo "Registration successful. Please check your email to verify your account!";
-    } else {
-        echo "Something went wrong, please try again!";
-    }
-}
-
-// Check if user is trying to login
-if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format!";
-        exit;
-    }
-
-    // Retrieve user details from database
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
-
-    if ($user) {
-        // Check if email is verified
-        if ($user['is_verified'] == 0) {
-            echo "Please verify your email before logging in!";
-            exit;
-        }
-
-        // Verify password
-        if (password_verify($password, $user['password'])) {
-            // Start session and set session variables
-            session_start();
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['email'] = $user['email'];
-
-            // Redirect to dashboard or main page
-            header("Location: dashboard.php");
-            exit;
-        } else {
-            echo "Incorrect password!";
-            exit;
-        }
-    } else {
-        echo "User not found!";
-        exit;
-    }
-}
-
-// Password reset functionality (optional feature)
-if (isset($_POST['reset_password'])) {
-    $email = $_POST['email'];
-    
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format!";
-        exit;
-    }
-
-    // Check if email exists
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch();
-
-    if ($user) {
-        // Generate a unique token for password reset
-        $token = bin2hex(random_bytes(16));
-        $reset_link = "http://yourwebsite.com/reset_password.php?token=" . $token;
-
-        // Store the reset token in the database (with expiration time)
-        $stmt = $pdo->prepare("UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?");
-        $expiry_time = time() + 3600; // Token expires in 1 hour
-        $stmt->execute([$token, $expiry_time, $email]);
-
-        // Send password reset email
-        mail($email, "Password Reset", "You can reset your password by clicking on the following link: " . $reset_link);
-
-        echo "Password reset email sent!";
-    } else {
-        echo "Email not found!";
-        exit;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 VED WEBNOVEL HUB - JOIN US!</title>
+    <title>📚 VED WEBNOVEL HUB - Welcome!</title>
     <style>
         /* 🔥 GLOBAL STYLES */
         body {
@@ -154,14 +16,19 @@ if (isset($_POST['reset_password'])) {
             animation: fadeIn 1s ease-in;
         }
 
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         /* 🔥 HEADER */
         header {
             background: #181818;
-            padding: 25px;
-            font-size: 32px;
+            padding: 40px;
+            font-size: 40px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             animation: glowEffect 2s infinite alternate;
         }
 
@@ -173,15 +40,21 @@ if (isset($_POST['reset_password'])) {
         /* 🔥 NAVBAR */
         nav {
             background: #292929;
-            padding: 12px;
+            padding: 14px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 18px;
+            margin: 0 25px;
             font-size: 18px;
+            font-weight: bold;
             transition: 0.3s;
         }
+
         nav a:hover {
             color: #facc15;
             text-shadow: 0 0 10px #facc15;
@@ -191,12 +64,12 @@ if (isset($_POST['reset_password'])) {
         /* 🔥 MAIN CONTENT AREA */
         .container {
             margin: 50px auto;
-            max-width: 950px;
-            padding: 25px;
+            max-width: 1100px;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-            animation: slideIn 1s ease-in-out;
+            border-radius: 25px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            animation: slideIn 1.5s ease-in-out;
         }
 
         @keyframes slideIn {
@@ -204,21 +77,54 @@ if (isset($_POST['reset_password'])) {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🔥 CALL-TO-ACTION BUTTONS */
+        /* 🔥 WELCOME SECTION */
+        .welcome-section {
+            padding: 50px;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-bottom: 50px;
+        }
+
         .cta-btn {
             background: #facc15;
             color: #0c0c0c;
-            padding: 20px 40px;
+            padding: 18px 35px;
             border-radius: 10px;
             font-size: 22px;
             text-decoration: none;
             display: inline-block;
-            margin: 15px 20px;
+            margin: 20px 20px;
             transition: 0.3s;
         }
+
         .cta-btn:hover {
             background: #ffcb00;
             transform: scale(1.1);
+        }
+
+        /* 🔥 FEATURED NOVELS SECTION */
+        .featured-novels {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-top: 40px;
+        }
+
+        .novel-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        .novel-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
         /* 🔥 FOOTER */
@@ -226,74 +132,57 @@ if (isset($_POST['reset_password'])) {
             background: #111;
             padding: 18px;
             font-size: 14px;
-            margin-top: 35px;
-        }
-
-        /* 🔥 FORM STYLES */
-        .form-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            margin: 20px auto;
-            max-width: 500px;
-        }
-
-        input {
+            margin-top: 40px;
+            text-align: center;
+            position: fixed;
             width: 100%;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            border: 1px solid #fff;
+            bottom: 0;
+        }
+
+        footer a {
             color: white;
-            background: #333;
+            text-decoration: none;
+            transition: 0.3s;
         }
 
-        input[type="submit"] {
-            background: #facc15;
-            color: #0c0c0c;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background: #ffcb00;
+        footer a:hover {
+            color: #facc15;
         }
     </style>
 </head>
 <body>
 
-<header>VED WEBNOVEL HUB - JOIN US!</header>
+<header>VED WEBNOVEL HUB - Explore the Future of Webnovels!</header>
 
+<!-- 🔥 NAVBAR -->
 <nav>
-    <a href="home.php">Home</a>
-    <a href="about.php">About</a>
-    <a href="contact.php">Contact</a>
+    <a href="index.html"><b>🏠 HOME</b></a> |
+    <a href="novels.html"><b>📖 NOVELS</b></a> |
+    <a href="upload.html"><b>📝 UPLOAD</b></a> |
+    <a href="genres.html"><b>🎭 GENRES</b></a> |
+    <a href="search.html"><b>🔍 SEARCH</b></a> |
+    <a href="about.html"><b>❓ ABOUT</b></a> |
+    <a href="contact.html"><b>📩 CONTACT</b></a>
 </nav>
 
+<!-- 🔥 CONTENT CONTAINER -->
 <div class="container">
-    <h2>Register or Login</h2>
-    
-    <form method="POST" class="form-container">
-        <input type="email" name="email" placeholder="Email Address" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <input type="password" name="confirm_password" placeholder="Confirm Password" required><br>
-        <input type="submit" name="register" value="Register">
-    </form>
+    <h1>📚 WHY WE BUILT THIS PLACE</h1>
+    <p>At VED Webnovel Hub, we understand the struggles of being a small, new, and often overlooked creator in a vast digital world. We're here to change that. Our mission is simple – we want to create a safe, welcoming, and professional environment for content creators and readers alike. A place where aspiring authors, like ourselves, can find the support they need to grow and share their stories with the world.</p>
 
-    <form method="POST" class="form-container">
-        <input type="email" name="email" placeholder="Email Address" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
-        <input type="submit" name="login" value="Login">
-    </form>
-    
-    <form method="POST" class="form-container">
-        <input type="email" name="email" placeholder="Email Address" required><br>
-        <input type="submit" name="reset_password" value="Reset Password">
-    </form>
+    <p>We're not a huge platform with massive funding or celebrity backing. We're just a group of passionate individuals – writers, dreamers, and creators – who believe in the power of stories. We understand the challenges of starting out with little to no recognition, and we want to make sure that no one has to feel alone in their journey.</p>
+
+    <p>Whether you're just starting as a webnovel writer, or you're looking for a community that truly supports and understands you, we’ve got your back. With VED Webnovel Hub, you're not just a number or a page view. You are part of a team, a comrade, and together, we can build something great.</p>
+
+    <p>Join us today! Whether you're here to read, write, or simply explore, this is the place where creativity and community come together.</p>
+
+    <a href="register.html" class="cta-btn">Join the Community</a>
+    <a href="login.html" class="cta-btn">Login</a>
 </div>
 
-<footer>📚 VED WEBNOVEL HUB 2025. All rights reserved.</footer>
+<footer>
+    <p>📚 VED WEBNOVEL HUB 2025. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+</footer>
 
 </body>
 </html>
