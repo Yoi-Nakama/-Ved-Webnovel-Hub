@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 Login - Ved Webnovel Hub</title>
+    <style>
+        /* 🔥 PAGE STYLING */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 🔥 LOGIN FORM */
+        .login-container {
+            margin: 100px auto;
+            max-width: 400px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: #222;
+            color: white;
+        }
+
+        input:focus {
+            border: 1px solid #facc15;
+            box-shadow: 0 0 10px #facc15;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 18px;
+            font-size: 16px;
+            background: #facc15;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e0b712;
+            transform: scale(1.05);
+        }
+
+        /* 🔥 Profile Image Styling */
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .profile-pic:hover {
+            box-shadow: 0 0 10px #facc15;
+            transform: scale(1.1);
+        }
+
+        /* Mini Settings Panel Styling */
+        .settings-panel {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 100;
+        }
+
+        .settings-panel button {
+            width: auto;
+            background: #facc15;
+            color: black;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .settings-panel button:hover {
+            background: #e0b712;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔐 Welcome to Ved Webnovel Hub</h1>
+    <p>Please log in to continue.</p>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="password" id="password" placeholder="Enter your password" required>
+        <button onclick="login()">Log In</button>
+    </div>
+
+    <p id="errorMessage" style="color: red;"></p>
+
+    <!-- Profile Picture -->
+    <div class="profile-container">
+        <img src="" id="profilePic" class="profile-pic" alt="Profile Picture" onclick="toggleSettingsPanel()">
+        <div class="settings-panel" id="settingsPanel">
+            <button onclick="goToFullSettings()">Go to Full Settings</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+
+            // ✅ Secure login system (Change the hardcoded credentials when adding a database)
+            const storedEmail = "admin@vedhub.com";
+            const storedPasswordHash = "e99a18c428cb38d5f260853678922e03"; // Pre-hashed version of 'admin123'
+
+            if (email === storedEmail && md5(password) === storedPasswordHash) {
+                alert("✅ Login Successful!");
+                localStorage.setItem("loggedIn", "true"); // Save login state
+                window.location.href = "index.html"; // Redirect to homepage
+            } else {
+                document.getElementById("errorMessage").textContent = "❌ Incorrect email or password!";
+            }
+        }
+
+        // ✅ If already logged in, go to home page automatically
+        if (localStorage.getItem("loggedIn") === "true") {
+            window.location.href = "index.html";
+        }
+
+        // 🔥 MD5 Hash Function for Password Encryption (Use a real backend for security)
+        function md5(string) {
+            return CryptoJS.MD5(string).toString();
+        }
+
+        // 🔥 Profile Picture Upload and Sync Across Pages
+        if (localStorage.getItem("profilePic")) {
+            document.getElementById("profilePic").src = localStorage.getItem("profilePic");
+        } else {
+            let emailInitial = document.getElementById("email").value.charAt(0).toUpperCase();
+            document.getElementById("profilePic").src = `https://via.placeholder.com/50/000000/FFFFFF/?text=${emailInitial}`;
+        }
+
+        // 🔥 Toggle Mini Settings Panel
+        function toggleSettingsPanel() {
+            const panel = document.getElementById("settingsPanel");
+            panel.style.display = (panel.style.display === "block") ? "none" : "block";
+        }
+
+        // 🔥 Logout Function
+        function logout() {
+            localStorage.removeItem("loggedIn"); // Remove login status
+            localStorage.removeItem("profilePic"); // Clear profile pic
+            alert("👋 Logged out successfully!");
+            window.location.href = "login.html"; // Redirect to login page
+        }
+
+        // 🔥 Go to Full Settings Page
+        function goToFullSettings() {
+            window.location.href = "settings.html"; // Redirect to full settings page
+        }
+
+        // 🔥 Handle Profile Image Upload
+        function uploadProfileImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    localStorage.setItem("profilePic", e.target.result); // Save image in localStorage
+                    document.getElementById("profilePic").src = e.target.result; // Update profile picture
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+    <!-- Import MD5 Hashing Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+
+</body>
+</html>
 
