@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚙ User Settings | Ved Webnovel Hub</title>
     <style>
+        /* 🔥 GLOBAL STYLES */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -20,6 +21,9 @@
             padding: 20px;
             font-size: 28px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
         nav {
@@ -31,14 +35,22 @@
             text-decoration: none;
             margin: 0 18px;
             font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #facc15;
+            text-shadow: 0 0 10px #facc15;
+            transform: scale(1.1);
         }
 
+        /* 🔥 SETTINGS CONTAINER */
         .settings-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 30px auto;
-            padding: 20px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: left;
         }
 
@@ -54,28 +66,38 @@
 
         input, select, textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
         button {
             background: #facc15;
             color: black;
-            padding: 10px 15px;
+            padding: 12px 18px;
             font-size: 16px;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: 0.3s;
         }
 
+        button:hover {
+            background: #d4a60b;
+            transform: scale(1.05);
+        }
+
+        /* Profile Picture Preview */
         #profile-preview {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             margin-top: 10px;
             display: none;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
@@ -89,6 +111,10 @@
         <a href="index.html">🏠 HOME</a> |
         <a href="novels.html">📖 NOVELS</a> |
         <a href="upload.html">📝 UPLOAD</a> |
+        <a href="genres.html">🎭 GENRES</a> |
+        <a href="search.html">🔍 SEARCH</a> |
+        <a href="about.html">❓ ABOUT</a> |
+        <a href="contact.html">📩 CONTACT</a> |
         <a href="profile.html">👤 PROFILE</a>
     </nav>
 
@@ -114,6 +140,37 @@
         </select>
 
         <button onclick="saveUI()">Save Preferences</button>
+
+        <h2>📧 Account Settings</h2>
+        <label>Email:</label>
+        <input type="email" id="email">
+
+        <label>Password:</label>
+        <input type="password" id="password">
+
+        <button onclick="saveAccount()">Save Account</button>
+
+        <h2>📚 Reading Preferences</h2>
+        <label>Preferred Genre:</label>
+        <select id="genre">
+            <option>Action</option>
+            <option>Fantasy</option>
+            <option>Sci-Fi</option>
+            <option>Romance</option>
+            <option>Horror</option>
+        </select>
+
+        <label>Reading Mode:</label>
+        <select id="reading-mode">
+            <option>Day Mode</option>
+            <option>Night Mode</option>
+            <option>Sepia Mode</option>
+        </select>
+
+        <button onclick="savePreferences()">Save Preferences</button>
+
+        <h2>⚠️ Account Actions</h2>
+        <button onclick="logout()">Logout</button>
     </div>
 
     <script>
@@ -121,6 +178,9 @@
             document.getElementById("username").value = localStorage.getItem("username") || "";
             document.getElementById("bio").value = localStorage.getItem("bio") || "";
             document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
+            document.getElementById("email").value = localStorage.getItem("email") || "";
+            document.getElementById("genre").value = localStorage.getItem("genre") || "Action";
+            document.getElementById("reading-mode").value = localStorage.getItem("reading-mode") || "Day Mode";
             
             let profilePic = localStorage.getItem("profile-pic");
             if (profilePic) {
@@ -146,6 +206,23 @@
         function applyTheme() {
             document.body.style.background = localStorage.getItem("theme") === "light" ? "white" : "#0c0c0c";
             document.body.style.color = localStorage.getItem("theme") === "light" ? "black" : "white";
+        }
+
+        function saveAccount() {
+            localStorage.setItem("email", document.getElementById("email").value);
+            alert("✅ Account settings saved!");
+        }
+
+        function savePreferences() {
+            localStorage.setItem("genre", document.getElementById("genre").value);
+            localStorage.setItem("reading-mode", document.getElementById("reading-mode").value);
+            alert("✅ Preferences saved!");
+        }
+
+        function logout() {
+            localStorage.clear();
+            alert("👋 Logged out successfully!");
+            window.location.href = "login.html";
         }
 
         document.getElementById("profile-pic").addEventListener("change", function(event) {
