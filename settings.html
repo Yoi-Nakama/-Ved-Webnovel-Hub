@@ -9,11 +9,16 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: #0c0c0c;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
             color: white;
             margin: 0;
             padding: 0;
-            transition: 0.3s;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         header {
@@ -24,6 +29,12 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 15px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
         }
 
         nav {
@@ -52,6 +63,12 @@
             border-radius: 12px;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: left;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
@@ -91,11 +108,16 @@
         }
 
         /* Profile Picture Preview */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         #profile-preview {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            margin-top: 10px;
             display: none;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
@@ -127,8 +149,10 @@
         <textarea id="bio"></textarea>
 
         <label>Profile Picture:</label>
-        <input type="file" id="profile-pic" accept="image/*">
-        <img id="profile-preview">
+        <div class="profile-container">
+            <input type="file" id="profile-pic" accept="image/*">
+            <img id="profile-preview">
+        </div>
 
         <button onclick="saveProfile()">Save Profile</button>
 
@@ -160,13 +184,6 @@
             <option>Horror</option>
         </select>
 
-        <label>Reading Mode:</label>
-        <select id="reading-mode">
-            <option>Day Mode</option>
-            <option>Night Mode</option>
-            <option>Sepia Mode</option>
-        </select>
-
         <button onclick="savePreferences()">Save Preferences</button>
 
         <h2>⚠️ Account Actions</h2>
@@ -180,7 +197,6 @@
             document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
             document.getElementById("email").value = localStorage.getItem("email") || "";
             document.getElementById("genre").value = localStorage.getItem("genre") || "Action";
-            document.getElementById("reading-mode").value = localStorage.getItem("reading-mode") || "Day Mode";
             
             let profilePic = localStorage.getItem("profile-pic");
             if (profilePic) {
@@ -208,33 +224,13 @@
             document.body.style.color = localStorage.getItem("theme") === "light" ? "black" : "white";
         }
 
-        function saveAccount() {
-            localStorage.setItem("email", document.getElementById("email").value);
-            alert("✅ Account settings saved!");
-        }
-
-        function savePreferences() {
-            localStorage.setItem("genre", document.getElementById("genre").value);
-            localStorage.setItem("reading-mode", document.getElementById("reading-mode").value);
-            alert("✅ Preferences saved!");
-        }
-
         function logout() {
             localStorage.clear();
             alert("👋 Logged out successfully!");
             window.location.href = "login.html";
         }
-
-        document.getElementById("profile-pic").addEventListener("change", function(event) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                localStorage.setItem("profile-pic", e.target.result);
-                document.getElementById("profile-preview").src = e.target.result;
-                document.getElementById("profile-preview").style.display = "block";
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
     </script>
 
 </body>
 </html>
+
