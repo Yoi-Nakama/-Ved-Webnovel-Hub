@@ -272,31 +272,28 @@ if (isset($_POST['reset_password'])) {
 </nav>
 
 <div class="container">
-    <!-- Registration Form -->
-    <div class="form-container">
-        <h2>Sign Up</h2>
-        <form method="POST">
-            <input type="email" name="email" required placeholder="Enter your email">
-            <input type="password" name="password" required placeholder="Create a password">
-            <input type="password" name="confirm_password" required placeholder="Confirm your password">
-            <input type="submit" name="register" value="Register">
-        </form>
-    </div>
+    <h2>Register or Login</h2>
+    
+    <form method="POST" class="form-container">
+        <input type="email" name="email" placeholder="Email Address" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required><br>
+        <input type="submit" name="register" value="Register">
+    </form>
 
-    <!-- Login Form -->
-    <div class="form-container">
-        <h2>Login</h2>
-        <form method="POST">
-            <input type="email" name="email" required placeholder="Enter your email">
-            <input type="password" name="password" required placeholder="Enter your password">
-            <input type="submit" name="login" value="Login">
-        </form>
-    </div>
+    <form method="POST" class="form-container">
+        <input type="email" name="email" placeholder="Email Address" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <input type="submit" name="login" value="Login">
+    </form>
+    
+    <form method="POST" class="form-container">
+        <input type="email" name="email" placeholder="Email Address" required><br>
+        <input type="submit" name="reset_password" value="Reset Password">
+    </form>
 </div>
 
-<footer> 
-    <p>&copy; 2025 VED Webnovel Hub. All rights reserved.</p>
-</footer>
+<footer>📚 VED WEBNOVEL HUB 2025. All rights reserved.</footer>
 
 </body>
 </html>
