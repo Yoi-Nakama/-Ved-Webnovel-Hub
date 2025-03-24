@@ -9,11 +9,11 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            background: #0c0c0c;
             color: white;
             margin: 0;
             padding: 0;
-            animation: fadeIn 1s ease-in;
+            transition: 0.3s;
         }
 
         /* 🔥 HEADER */
@@ -24,7 +24,6 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
         /* 🔥 NAVBAR */
@@ -37,12 +36,6 @@
             text-decoration: none;
             margin: 0 18px;
             font-size: 18px;
-            transition: 0.3s;
-        }
-        nav a:hover {
-            color: #facc15;
-            text-shadow: 0 0 10px #facc15;
-            transform: scale(1.1);
         }
 
         /* 🔥 SETTINGS CONTAINER */
@@ -52,7 +45,6 @@
             padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: left;
         }
 
@@ -78,26 +70,10 @@
         button {
             background: #facc15;
             color: black;
-            border: none;
             padding: 10px 15px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #d4a60b;
-            transform: scale(1.05);
-        }
-
-        .danger-btn {
-            background: red;
-            color: white;
-        }
-
-        .danger-btn:hover {
-            background: darkred;
         }
 
         /* Profile Picture Preview */
@@ -112,39 +88,33 @@
 </head>
 <body>
 
-    <!-- 🔥 HEADER -->
     <header>
         ⚙ User Settings | Ved Webnovel Hub
     </header>
 
-    <!-- 🔥 NAVBAR (Links to All Main Pages) -->
     <nav>
-        <a href="index.html"><b>🏠 HOME</b></a> |
-        <a href="novels.html"><b>📖 NOVELS</b></a> |
-        <a href="upload.html"><b>📝 UPLOAD</b></a> |
-        <a href="genres.html"><b>🎭 GENRES</b></a> |
-        <a href="search.html"><b>🔍 SEARCH</b></a> |
-        <a href="about.html"><b>❓ ABOUT</b></a> |
-        <a href="contact.html"><b>📩 CONTACT</b></a>
+        <a href="index.html">🏠 HOME</a> |
+        <a href="novels.html">📖 NOVELS</a> |
+        <a href="upload.html">📝 UPLOAD</a> |
+        <a href="profile.html">👤 PROFILE</a>
     </nav>
 
-    <!-- 🔥 SETTINGS CONTAINER -->
     <div class="settings-container">
         <h2>👤 Profile Settings</h2>
-        <label for="username">Username:</label>
-        <input type="text" id="username" placeholder="Enter your username">
-        
-        <label for="bio">Bio:</label>
-        <textarea id="bio" placeholder="Tell something about yourself..."></textarea>
+        <label>Username:</label>
+        <input type="text" id="username">
 
-        <label for="profile-pic">Profile Picture:</label>
+        <label>Bio:</label>
+        <textarea id="bio"></textarea>
+
+        <label>Profile Picture:</label>
         <input type="file" id="profile-pic" accept="image/*">
         <img id="profile-preview">
 
         <button onclick="saveProfile()">Save Profile</button>
 
         <h2>🎨 Theme & UI</h2>
-        <label for="theme">Theme:</label>
+        <label>Theme:</label>
         <select id="theme">
             <option value="dark">Dark Mode</option>
             <option value="light">Light Mode</option>
@@ -152,58 +122,91 @@
 
         <button onclick="saveUI()">Save Preferences</button>
 
-        <h2>📝 Author Dashboard (For Authors)</h2>
-        <button onclick="goToDashboard()">Go to Dashboard</button>
+        <h2>📧 Account Settings</h2>
+        <label>Change Email:</label>
+        <input type="email" id="email">
+
+        <label>Change Password:</label>
+        <input type="password" id="password">
+
+        <button onclick="saveAccount()">Save Account Changes</button>
+
+        <h2>🌍 Language & Reading</h2>
+        <label>Language:</label>
+        <select id="language">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Spanish</option>
+        </select>
+
+        <label>Preferred Genre:</label>
+        <select id="genre">
+            <option>Action</option>
+            <option>Fantasy</option>
+            <option>Sci-Fi</option>
+        </select>
+
+        <button onclick="savePreferences()">Save Preferences</button>
 
         <h2>⚠️ Account Actions</h2>
-        <button class="danger-btn" onclick="deleteAccount()">Delete Account</button>
         <button onclick="logout()">Logout</button>
     </div>
 
     <script>
-        // ✅ Load saved settings on page load
+        // ✅ Load saved settings
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("username").value = localStorage.getItem("username") || "";
             document.getElementById("bio").value = localStorage.getItem("bio") || "";
             document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
+            document.getElementById("email").value = localStorage.getItem("email") || "";
+            document.getElementById("language").value = localStorage.getItem("language") || "English";
+            document.getElementById("genre").value = localStorage.getItem("genre") || "Action";
+            
+            // Profile Picture Load
             let profilePic = localStorage.getItem("profile-pic");
             if (profilePic) {
                 document.getElementById("profile-preview").src = profilePic;
                 document.getElementById("profile-preview").style.display = "block";
             }
+
+            applyTheme();
         });
 
         function saveProfile() {
             localStorage.setItem("username", document.getElementById("username").value);
             localStorage.setItem("bio", document.getElementById("bio").value);
-            alert("✅ Profile updated & saved!");
+            alert("✅ Profile saved!");
         }
 
         function saveUI() {
             localStorage.setItem("theme", document.getElementById("theme").value);
-            alert("✅ UI settings saved!");
+            applyTheme();
+            alert("✅ Theme saved!");
         }
 
-        function goToDashboard() {
-            window.location.href = "dashboard.html";
+        function applyTheme() {
+            document.body.style.background = localStorage.getItem("theme") === "light" ? "white" : "#0c0c0c";
+            document.body.style.color = localStorage.getItem("theme") === "light" ? "black" : "white";
+        }
+
+        function saveAccount() {
+            localStorage.setItem("email", document.getElementById("email").value);
+            alert("✅ Account changes saved!");
+        }
+
+        function savePreferences() {
+            localStorage.setItem("language", document.getElementById("language").value);
+            localStorage.setItem("genre", document.getElementById("genre").value);
+            alert("✅ Preferences saved!");
         }
 
         function logout() {
-            localStorage.removeItem("loggedIn");
+            localStorage.clear();
             alert("👋 Logged out successfully!");
             window.location.href = "login.html";
         }
 
-        function deleteAccount() {
-            let confirmDelete = confirm("⚠️ Are you sure you want to delete your account? This action cannot be undone!");
-            if (confirmDelete) {
-                localStorage.clear();
-                alert("💀 Account deleted!");
-                window.location.href = "signup.html";
-            }
-        }
-
-        // ✅ Save & Display Profile Picture
+        // ✅ Profile Picture Upload
         document.getElementById("profile-pic").addEventListener("change", function(event) {
             let reader = new FileReader();
             reader.onload = function(e) {
