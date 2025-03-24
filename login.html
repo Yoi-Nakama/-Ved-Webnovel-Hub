@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +14,21 @@
             color: white;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* 🔥 LOGIN FORM */
         .login-container {
-            margin: 100px auto;
+            margin: 0 auto;
             max-width: 400px;
-            padding: 25px;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+            transition: 0.3s;
         }
 
         input {
@@ -101,8 +107,27 @@
         .settings-panel button:hover {
             background: #e0b712;
         }
+
+        /* Header Styling */
+        h1 {
+            font-size: 2.5em;
+            margin-top: 50px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        /* Error Message */
+        #errorMessage {
+            color: red;
+            font-size: 1em;
+            margin-top: 10px;
+        }
     </style>
 </head>
+
 <body>
 
     <h1>🔐 Welcome to Ved Webnovel Hub</h1>
@@ -115,7 +140,7 @@
         <button onclick="login()">Log In</button>
     </div>
 
-    <p id="errorMessage" style="color: red;"></p>
+    <p id="errorMessage"></p>
 
     <!-- Profile Picture -->
     <div class="profile-container">
@@ -199,5 +224,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
 
 </body>
-</html>
 
+</html>
