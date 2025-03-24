@@ -13,12 +13,7 @@
             color: white;
             margin: 0;
             padding: 0;
-            animation: fadeIn 1s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            transition: 0.3s;
         }
 
         header {
@@ -28,13 +23,6 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            animation: glowEffect 2s infinite alternate;
-        }
-
-        @keyframes glowEffect {
-            0% { text-shadow: 0 0 15px #facc15; }
-            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
         }
 
         nav {
@@ -61,14 +49,7 @@
             padding: 25px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 12px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             text-align: left;
-            animation: slideIn 1s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
@@ -100,6 +81,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: 0.3s;
+            margin-top: 15px;
         }
 
         button:hover {
@@ -107,7 +89,7 @@
             transform: scale(1.05);
         }
 
-        /* Profile Picture Preview */
+        /* Profile Preview */
         .profile-container {
             display: flex;
             align-items: center;
@@ -119,7 +101,31 @@
             height: 100px;
             border-radius: 50%;
             display: none;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Achievements & Badges */
+        .badges-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .badge {
+            background: #facc15;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* 🔥 AI WRITING ASSISTANT */
+        .ai-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -148,43 +154,23 @@
         <label>Bio:</label>
         <textarea id="bio"></textarea>
 
-        <label>Profile Picture:</label>
-        <div class="profile-container">
-            <input type="file" id="profile-pic" accept="image/*">
-            <img id="profile-preview">
-        </div>
-
         <button onclick="saveProfile()">Save Profile</button>
 
-        <h2>🎨 Theme & UI</h2>
-        <label>Theme:</label>
-        <select id="theme">
-            <option value="dark">Dark Mode</option>
-            <option value="light">Light Mode</option>
-        </select>
+        <!-- 🔥 BADGES SECTION -->
+        <h2>🏆 Your Badges</h2>
+        <div class="badges-container" id="badges">
+            <div class="badge">🔥</div>
+            <div class="badge">📚</div>
+            <div class="badge">🚀</div>
+        </div>
 
-        <button onclick="saveUI()">Save Preferences</button>
-
-        <h2>📧 Account Settings</h2>
-        <label>Email:</label>
-        <input type="email" id="email">
-
-        <label>Password:</label>
-        <input type="password" id="password">
-
-        <button onclick="saveAccount()">Save Account</button>
-
-        <h2>📚 Reading Preferences</h2>
-        <label>Preferred Genre:</label>
-        <select id="genre">
-            <option>Action</option>
-            <option>Fantasy</option>
-            <option>Sci-Fi</option>
-            <option>Romance</option>
-            <option>Horror</option>
-        </select>
-
-        <button onclick="savePreferences()">Save Preferences</button>
+        <!-- 🔥 AI WRITING ASSISTANT -->
+        <div class="ai-box">
+            <h2>📝 AI Writing Assistant</h2>
+            <textarea id="ai-text" placeholder="Type your story..."></textarea>
+            <button onclick="generateText()">✨ AI Suggests</button>
+            <p id="ai-output"></p>
+        </div>
 
         <h2>⚠️ Account Actions</h2>
         <button onclick="logout()">Logout</button>
@@ -194,17 +180,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("username").value = localStorage.getItem("username") || "";
             document.getElementById("bio").value = localStorage.getItem("bio") || "";
-            document.getElementById("theme").value = localStorage.getItem("theme") || "dark";
-            document.getElementById("email").value = localStorage.getItem("email") || "";
-            document.getElementById("genre").value = localStorage.getItem("genre") || "Action";
-            
-            let profilePic = localStorage.getItem("profile-pic");
-            if (profilePic) {
-                document.getElementById("profile-preview").src = profilePic;
-                document.getElementById("profile-preview").style.display = "block";
-            }
-
-            applyTheme();
+            loadBadges();
         });
 
         function saveProfile() {
@@ -213,19 +189,19 @@
             alert("✅ Profile saved!");
         }
 
-        function saveUI() {
-            localStorage.setItem("theme", document.getElementById("theme").value);
-            applyTheme();
-            alert("✅ Theme saved!");
+        function generateText() {
+            let input = document.getElementById("ai-text").value;
+            let output = "📖 AI Suggests: " + input.split(" ").slice(0, 10).join(" ") + "...";
+            document.getElementById("ai-output").textContent = output;
         }
 
-        function applyTheme() {
-            document.body.style.background = localStorage.getItem("theme") === "light" ? "white" : "#0c0c0c";
-            document.body.style.color = localStorage.getItem("theme") === "light" ? "black" : "white";
+        function loadBadges() {
+            let badges = ["First Login", "Profile Updated", "Genre Selected"];
+            let badgeContainer = document.getElementById("badges");
+            badgeContainer.innerHTML = badges.map(badge => `<span class="badge">${badge}</span>`).join("");
         }
 
         function logout() {
-            localStorage.clear();
             alert("👋 Logged out successfully!");
             window.location.href = "login.html";
         }
@@ -233,4 +209,3 @@
 
 </body>
 </html>
-
