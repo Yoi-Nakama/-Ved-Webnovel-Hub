@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Ved Web Novel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #ff9800;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        a {
+            color: #ff9800;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔥 Sign In to Ved Web Novel</h1>
+    <div class="container">
+        <input type="email" id="email" placeholder="Enter your email">
+        <input type="password" id="password" placeholder="Enter your password">
+        <button onclick="signIn()">Sign In</button>
+        <p>New here? <a href="signup.html">Create an account</a></p>
+        <p>Forgot password? <a href="#">Reset</a></p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBviXBuWeEQrPny6BFQsUTrHZjwPuyvEPo",
+            authDomain: "vedwebnovel.firebaseapp.com",
+            projectId: "vedwebnovel",
+            storageBucket: "vedwebnovel.firebasestorage.app",
+            messagingSenderId: "542714134112",
+            appId: "1:542714134112:web:93559ebbcc9a68b8394d05"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Sign In Function
+        function signIn() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    alert("Sign in successful! Welcome back.");
+                    window.location.href = "index.html"; // Redirect to homepage
+                })
+                .catch((error) => {
+                    alert("Error: " + error.message);
+                });
+        }
+    </script>
+
+</body>
+</html>
 
