@@ -179,14 +179,14 @@
         // ✅ Login check (redirects if not logged in)
         document.addEventListener("DOMContentLoaded", function () {
             if (!localStorage.getItem("loggedIn")) {
-                window.location.href = "login.html";
+                window.location.href = "welcome.html";
             }
         });
 
         function logout() {
             localStorage.removeItem("loggedIn");
             alert("👋 Logged out successfully!");
-            window.location.href = "login.html";
+            window.location.href = "welcome.html";
         }
 
         function goToSettings() {
@@ -195,4 +195,5 @@
     </script>
 
 </body>
-</html>
+    </html>
+    
