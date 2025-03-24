@@ -61,7 +61,7 @@
             transform: scale(1.1);
         }
 
-        /* 🔥 CONTENT CONTAINER */
+        /* 🔥 MAIN CONTENT AREA */
         .container {
             margin: 50px auto;
             max-width: 1100px;
@@ -77,7 +77,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🔥 BUTTONS */
+        /* 🔥 WELCOME SECTION */
+        .welcome-section {
+            padding: 50px;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-bottom: 50px;
+        }
+
         .cta-btn {
             background: #facc15;
             color: #0c0c0c;
@@ -118,27 +127,27 @@
         }
     </style>
 
-    <!-- 🔥 REDIRECT SCRIPT -->
     <script>
-        // Check if the user is already signed in
-        if (localStorage.getItem("userLoggedIn") === "true") {
-            window.location.href = "index.html"; // Redirect to homepage if user is signed in
-        }
+        // 🔥 CHECK IF USER IS ALREADY LOGGED IN
+        document.addEventListener("DOMContentLoaded", function() {
+            const isLoggedIn = localStorage.getItem("isLoggedIn"); 
 
-        function signIn() {
-            // Simulate successful sign-in (Replace with actual authentication logic)
-            localStorage.setItem("userLoggedIn", "true"); // Store login status
-            window.location.href = "index.html"; // Redirect to homepage
-        }
+            if (isLoggedIn === "true") {
+                // 🚀 User is already logged in, redirect to homepage
+                window.location.href = "index.html";
+            }
+        });
 
-        function signUp() {
-            // Simulate successful sign-up (Replace with actual sign-up logic)
-            localStorage.setItem("userLoggedIn", "true"); // Store login status
-            window.location.href = "index.html"; // Redirect to homepage
+        function loginUser() {
+            // Fake authentication process (replace this with actual login logic)
+            localStorage.setItem("isLoggedIn", "true");
+
+            // ✅ Redirect to homepage after login
+            window.location.href = "index.html";
         }
     </script>
-
 </head>
+
 <body>
 
 <header>VED WEBNOVEL HUB - Explore the Future of Webnovels!</header>
@@ -157,15 +166,14 @@
 <!-- 🔥 CONTENT CONTAINER -->
 <div class="container">
     <h1>📚 WHY WE BUILT THIS PLACE</h1>
-    <p>VED Webnovel Hub was founded with a vision—to empower small, new, and often overlooked creators in a world dominated by big names. We provide a professional yet welcoming space where aspiring writers and passionate readers can thrive.</p>
+    <p>At VED Webnovel Hub, we understand the struggles of being a small, new, and often overlooked creator in a vast digital world. Our mission is simple – to provide a professional and supportive platform where aspiring authors can thrive and connect with a vibrant community of readers.</p>
 
-    <p>We're not a massive corporate-backed platform. We're a team of dedicated writers and creators who understand the struggles of starting out with little recognition. This is a community where your voice matters, where stories are valued, and where your journey as a writer can truly begin.</p>
+    <p>We’re not just another webnovel platform; we’re a movement built by writers, for writers. Whether you're an experienced storyteller or just beginning your journey, this is your space to shine. No barriers, no bias—just pure creative expression.</p>
 
-    <p>Whether you're here to discover new stories, publish your own, or connect with like-minded creators, you've found the right place. Join us and be part of a revolution in the webnovel space.</p>
+    <p>Join us today! Whether you're here to read, write, or simply explore, this is where creativity meets opportunity.</p>
 
     <a href="media.html" class="cta-btn">Join the 🥳 Community</a>
-    <button class="cta-btn" onclick="signIn()">Sign In</button>
-    <button class="cta-btn" onclick="signUp()">Sign Up</button>
+    <a href="javascript:void(0);" class="cta-btn" onclick="loginUser()">Signin</a>
 </div>
 
 <footer>
