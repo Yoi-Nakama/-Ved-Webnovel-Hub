@@ -46,7 +46,7 @@
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
         <button id="signup-btn">Signup</button>
-        <p>Already have an account? <a href="sign.html">Signin here</a></p>
+        <p>Already have an account? <a href="signin.html">Signin here</a></p>
     </div>
 
     <!-- Firebase Setup -->
@@ -77,7 +77,7 @@
             createUserWithEmailAndPassword(auth, email, password)
                 .then(() => {
                     alert("Signup Successful! Redirecting to Signin...");
-                    window.location.href = "Signin.html";
+                    window.location.href = "signin.html";
                 })
                 .catch(error => {
                     alert(error.message);
