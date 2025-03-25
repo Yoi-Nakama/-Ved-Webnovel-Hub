@@ -59,6 +59,16 @@
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
         }
 
+        /* 🔥 PROFILE IMAGE */
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #facc15;
+            margin-top: 10px;
+            display: none;
+        }
+
         /* 🔥 BUTTONS */
         .btn {
             padding: 12px 20px;
@@ -73,6 +83,7 @@
         .logout-btn {
             background: red;
             color: white;
+            display: none; /* Initially hidden */
         }
         .logout-btn:hover {
             background: darkred;
@@ -126,19 +137,19 @@
 
     <!-- 🔥 CONTENT CONTAINER -->
     <div class="container">
-        <h1>Welcome to Ved Webnovel Hub</h1>
+        <img id="profile-img" class="profile-img" src="" alt="Profile Picture">
+        <h1 id="welcome-message">Welcome to Ved Webnovel Hub</h1>
         <p id="user-email">Loading...</p>
-        <p id="user-uid"></p>
 
         <!-- 🔥 BUTTONS -->
         <button class="btn signup-btn" id="signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
         <button class="btn signin-btn" id="signin-btn" onclick="window.location.href='signin.html'">Sign In</button>
-        <button class="btn logout-btn" id="logout-btn" style="display: none;">Logout</button>
+        <button class="btn logout-btn" id="logout-btn">Logout</button>
     </div>
 
     <!-- 🔥 FOOTER -->
     <footer>
-        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
+        &copy; 2025 Ved Webnovel Hub. All Rights Reserved.
     </footer>
 
     <!-- 🔥 Firebase Authentication -->
@@ -164,27 +175,38 @@
         // Check if user is logged in
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                const userName = user.displayName || user.email;
+                const userPhoto = user.photoURL;
+
+                document.getElementById("welcome-message").innerText = `Welcome, ${userName}!`;
                 document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
-                document.getElementById("user-uid").innerText = `User ID: ${user.uid}`;
+
+                // Display profile image only if available
+                if (userPhoto) {
+                    document.getElementById("profile-img").src = userPhoto;
+                    document.getElementById("profile-img").style.display = "block";
+                }
 
                 // Hide signup & signin buttons, show logout button
                 document.getElementById("signup-btn").style.display = "none";
                 document.getElementById("signin-btn").style.display = "none";
                 document.getElementById("logout-btn").style.display = "inline-block";
             } else {
-                // If no user, redirect to signin
+                // Redirect to sign-in if not logged in
                 window.location.href = "signin.html";
             }
         });
 
-        // Logout function
+        // Logout function with confirmation
         document.getElementById("logout-btn").addEventListener("click", () => {
-            signOut(auth).then(() => {
-                alert("Logged out successfully!");
-                window.location.href = "signin.html"; // Redirect to sign-in page after logout
-            }).catch(error => {
-                alert(error.message);
-            });
+            if (confirm("Are you sure you want to log out?")) {
+                signOut(auth).then(() => {
+                    alert("Logged out successfully!");
+                    window.location.href = "signin.html"; // Redirect to sign-in page after logout
+                }).catch(error => {
+                    alert(error.message);
+                });
+            }
         });
     </script>
 
