@@ -5,44 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Ved Webnovel Hub</title>
     <style>
+        /* 🔥 GLOBAL STYLES */
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #0c0c0c, #1b1b1b);
             color: white;
             text-align: center;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
         }
+
+        /* 🔥 HEADER */
+        header {
+            background: #181818;
+            padding: 25px;
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 15px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
+        }
+
+        /* 🔥 NAVBAR */
+        nav {
+            background: #292929;
+            padding: 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #facc15;
+            text-shadow: 0 0 10px #facc15;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 CONTENT CONTAINER */
         .container {
             max-width: 600px;
-            margin: auto;
+            margin: 30px auto;
             padding: 25px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
         }
-        button {
-            padding: 12px;
-            width: 100%;
+
+        /* 🔥 BUTTONS */
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        .logout-btn {
+            background: red;
+            color: white;
+        }
+        .logout-btn:hover {
+            background: darkred;
+            transform: scale(1.05);
+        }
+
+        .signup-btn {
             background: #facc15;
             color: black;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            margin-top: 15px;
         }
-        button:hover {
+        .signup-btn:hover {
             background: orange;
+            transform: scale(1.05);
+        }
+
+        .signin-btn {
+            background: #17a2b8;
+            color: white;
+        }
+        .signin-btn:hover {
+            background: #128fa1;
+            transform: scale(1.05);
+        }
+
+        /* 🔥 FOOTER */
+        footer {
+            background: #111;
+            padding: 18px;
+            font-size: 14px;
+            margin-top: 35px;
         }
     </style>
 </head>
 <body>
 
+    <!-- 🔥 HEADER -->
+    <header>
+        📚 VED WEBNOVEL HUB - A PLACE FOR SMALL CREATORS
+    </header>
+
+    <!-- 🔥 NAVBAR -->
+    <nav>
+        <a href="index.html"><b>🏠 HOME</b></a> |
+        <a href="novels.html"><b>📖 NOVELS</b></a> |
+        <a href="upload.html"><b>📝 UPLOAD</b></a> |
+        <a href="genres.html"><b>🎭 GENRES</b></a> |
+        <a href="search.html"><b>🔍 SEARCH</b></a> |
+        <a href="about.html"><b>❓ ABOUT</b></a> |
+        <a href="contact.html"><b>📩 CONTACT</b></a>
+    </nav>
+
+    <!-- 🔥 CONTENT CONTAINER -->
     <div class="container">
         <h1>Welcome to Ved Webnovel Hub</h1>
         <p id="user-email">Loading...</p>
-        <button id="logout-btn">Logout</button>
+
+        <!-- 🔥 BUTTONS -->
+        <button class="btn signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        <button class="btn signin-btn" onclick="window.location.href='signin.html'">Sign In</button>
+        <button class="btn logout-btn" id="logout-btn">Logout</button>
     </div>
 
-    <!-- Firebase Setup -->
+    <!-- 🔥 FOOTER -->
+    <footer>
+        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
+    </footer>
+
+    <!-- 🔥 Firebase Authentication -->
     <script type="module">
         // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -67,7 +165,7 @@
             if (user) {
                 document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
             } else {
-                window.location.href = "signin.html"; // Redirect to signin if not logged in
+                window.location.href = "signin.html"; // Redirect to sign-in if not logged in
             }
         });
 
@@ -75,7 +173,7 @@
         document.getElementById("logout-btn").addEventListener("click", () => {
             signOut(auth).then(() => {
                 alert("Logged out successfully!");
-                window.location.href = "signin.html"; // Redirect to signin page after logout
+                window.location.href = "signin.html"; // Redirect to sign-in page after logout
             }).catch(error => {
                 alert(error.message);
             });
