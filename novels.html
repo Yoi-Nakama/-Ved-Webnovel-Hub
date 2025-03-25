@@ -32,7 +32,7 @@
             100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
         }
 
-        /* 🔥 NAVBAR - Smooth Hover Effect */
+        /* 🔥 NAVBAR */
         nav {
             background: #292929;
             padding: 12px;
@@ -58,12 +58,23 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            animation: slideIn 1s ease-in-out;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 🔥 SEARCH & SORT OPTIONS */
+        .controls {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .controls input, .controls select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            width: 200px;
+            outline: none;
         }
 
         /* 🔥 NOVEL CARDS */
@@ -94,6 +105,7 @@
             width: 100%;
             height: 200px;
             border-radius: 5px;
+            object-fit: cover;
         }
 
         .novel-card h3 {
@@ -152,6 +164,15 @@
         <a href="contact.html">📩 Contact</a>
     </nav>
 
+    <!-- 🔥 SEARCH & FILTER -->
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="🔍 Search novels...">
+        <select id="sortOption">
+            <option value="views">🔥 Most Popular</option>
+            <option value="rating">⭐ Highest Rated</option>
+        </select>
+    </div>
+
     <!-- 🔥 NOVEL LIST CONTAINER -->
     <div class="novel-container">
         <h2>📖 Latest Webnovels</h2>
@@ -169,59 +190,24 @@
     </footer>
 
     <script>
-        // Sample Novel Data (Later this can come from a real database!)
         let novels = [
-            { 
-                title: "Solo Leveling", 
-                author: "Chugong", 
-                genre: "Action", 
-                rating: "⭐⭐⭐⭐⭐", 
-                views: "100K", 
-                cover: "https://example.com/solo-leveling-cover.jpg",
-                link: "read.html?novel=solo-leveling"
-            },
-            { 
-                title: "Overlord", 
-                author: "Kugane Maruyama", 
-                genre: "Fantasy", 
-                rating: "⭐⭐⭐⭐", 
-                views: "80K", 
-                cover: "https://example.com/overlord-cover.jpg",
-                link: "read.html?novel=overlord"
-            },
-            { 
-                title: "Reincarnation of the Strongest Sword God", 
-                author: "Lucky Old Cat", 
-                genre: "Sci-Fi", 
-                rating: "⭐⭐⭐⭐⭐", 
-                views: "120K", 
-                cover: "https://example.com/rssg-cover.jpg",
-                link: "read.html?novel=rssg"
-            }
+            { title: "Solo Leveling", author: "Chugong", genre: "Action", rating: 5, views: 100000, cover: "https://example.com/solo.jpg", link: "read.html?novel=solo-leveling" },
+            { title: "Overlord", author: "Kugane Maruyama", genre: "Fantasy", rating: 4, views: 80000, cover: "https://example.com/overlord.jpg", link: "read.html?novel=overlord" },
+            { title: "RSSG", author: "Lucky Old Cat", genre: "Sci-Fi", rating: 5, views: 120000, cover: "https://example.com/rssg.jpg", link: "read.html?novel=rssg" }
         ];
 
-        // Function to Load Novels Dynamically
         function loadNovels() {
-            let novelList = document.getElementById('novelList');
-            novelList.innerHTML = ""; // Clear previous list
-
+            let list = document.getElementById('novelList');
+            list.innerHTML = "";
             novels.forEach(novel => {
-                let novelCard = document.createElement('div');
-                novelCard.className = "novel-card";
-                novelCard.innerHTML = `
-                    <img src="${novel.cover}" alt="${novel.title} Cover">
-                    <h3>${novel.title}</h3>
-                    <p>✍️ ${novel.author}</p>
-                    <p>🎭 ${novel.genre}</p>
-                    <p class="rating">⭐ ${novel.rating}</p>
-                    <p class="views">👀 ${novel.views} Views</p>
-                    <a href="${novel.link}">📖 Read Now</a>
-                `;
-                novelList.appendChild(novelCard);
+                let card = document.createElement('div');
+                card.className = "novel-card";
+                card.innerHTML = `<img src="${novel.cover}" loading="lazy"><h3>${novel.title}</h3><p>✍️ ${novel.author}</p><p>🎭 ${novel.genre}</p><p>⭐ ${novel.rating}</p><p>👀 ${novel.views} Views</p><a href="${novel.link}">📖 Read Now</a>`;
+                list.appendChild(card);
             });
         }
 
-        // Load Novels on Page Load
+        document.getElementById('sortOption').onchange = () => { novels.sort((a, b) => b.views - a.views); loadNovels(); };
         window.onload = loadNovels;
     </script>
 
