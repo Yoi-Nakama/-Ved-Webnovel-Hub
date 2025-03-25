@@ -1,81 +1,86 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Sign In | Ved Web Novel</title>
+    <title>Signin - Ved Webnovel Hub</title>
     <style>
         body {
-            text-align: center;
-            background: #121212;
-            color: white;
             font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            color: white;
+            text-align: center;
         }
         .container {
+            margin: 50px auto;
             max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #facc15;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
         }
-        input, button {
+        input {
             width: 90%;
-            margin: 10px 0;
-            padding: 12px;
-            border: none;
+            padding: 10px;
+            margin: 8px 0;
             border-radius: 5px;
+            border: none;
         }
         button {
-            background-color: #facc15;
-            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            background: #facc15;
+            color: black;
+            border: none;
             cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background: orange;
         }
     </style>
 </head>
 <body>
 
-    <h2>🔥 Sign In to Ved Web Novel</h2>
-
     <div class="container">
-        <input type="email" id="email" placeholder="Enter your email">
-        <input type="password" id="password" placeholder="Enter your password">
-        <button id="signin-btn">Sign In</button>
-        <p>New here? <a href="signup.html">Create an account</a></p>
+        <h1>Signin</h1>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="signin-btn">Signin</button>
+        <p>Don't have an account? <a href="signup.html">Signup here</a></p>
     </div>
 
+    <!-- Firebase Setup -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBviXBuWeEQrPny6BFQsUTrHZjwPuyvEPo",
             authDomain: "vedwebnovel.firebaseapp.com",
             projectId: "vedwebnovel",
-            storageBucket: "vedwebnovel.firebasestorage.app",
+            storageBucket: "vedwebnovel.appspot.com",
             messagingSenderId: "542714134112",
             appId: "1:542714134112:web:93559ebbcc9a68b8394d05"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        document.getElementById("signin-btn").addEventListener("click", function() {
+        // Signin function
+        document.getElementById("signin-btn").addEventListener("click", () => {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            if (!email || !password) {
-                alert("Please enter email and password.");
-                return;
-            }
-
             signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    alert("Sign in successful!");
-                    window.location.href = "index.html";
+                .then(() => {
+                    alert("Signin Successful! Redirecting...");
+                    window.location.href = "dashboard.html"; // Change this to your actual dashboard or homepage
                 })
-                .catch((error) => {
-                    alert("Error: " + error.message);
+                .catch(error => {
+                    alert(error.message);
                 });
         });
     </script>
