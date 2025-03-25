@@ -94,8 +94,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Redirect user if already logged in
             if (localStorage.getItem("isLoggedIn") === "true") {
                 window.location.href = "index.html";
+            }
+
+            // Prevent repeated redirection in the same session
+            if (!sessionStorage.getItem("redirected")) {
+                sessionStorage.setItem("redirected", "true");
+                setTimeout(() => {
+                    window.location.href = "index.html"; // Redirect after a delay
+                }, 2000); // Redirect in 2 seconds
             }
         });
 
@@ -126,6 +135,7 @@
     <h1>📚 Welcome to VED Webnovel Hub!</h1>
     <p>Your creative space for discovering and publishing amazing web novels. A platform built by writers, for writers.</p>
     <p>Whether you're here to write, read, or connect with fellow storytellers, you've found your home.</p>
+    <p>Redirecting you shortly...</p>
 
     <a href="media.html" class="cta-btn">Join the 🥳 Community</a>
     <a href="javascript:void(0);" class="cta-btn" onclick="loginUser()">Sign In</a>
@@ -135,5 +145,6 @@
     <p>📚 VED WEBNOVEL HUB 2025. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms</a></p>
 </footer>
 
-</body>
-</html>
+</body>           
+        </html>
+        
