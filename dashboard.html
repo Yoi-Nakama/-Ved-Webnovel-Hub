@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ved Webnovel Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        button {
+            padding: 12px;
+            width: 100%;
+            background: #facc15;
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to Ved Webnovel Hub</h1>
+        <p id="user-email">Loading...</p>
+        <button id="logout-btn">Logout</button>
+    </div>
+
+    <!-- Firebase Setup -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBviXBuWeEQrPny6BFQsUTrHZjwPuyvEPo",
+            authDomain: "vedwebnovel.firebaseapp.com",
+            projectId: "vedwebnovel",
+            storageBucket: "vedwebnovel.appspot.com",
+            messagingSenderId: "542714134112",
+            appId: "1:542714134112:web:93559ebbcc9a68b8394d05"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
+            } else {
+                window.location.href = "signin.html"; // Redirect to signin if not logged in
+            }
+        });
+
+        // Logout function
+        document.getElementById("logout-btn").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                alert("Logged out successfully!");
+                window.location.href = "signin.html"; // Redirect to signin page after logout
+            }).catch(error => {
+                alert(error.message);
+            });
+        });
+    </script>
+
+</body>
+</html>
