@@ -90,6 +90,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
+            border: none;
         }
         .logout-btn:hover {
             background: darkred;
@@ -105,23 +106,9 @@
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Check if user is logged in
-            if (!localStorage.getItem("isLoggedIn")) {
-                console.log("User not logged in, allowing free access.");
-            }
-        });
-
-        function loginUser() {
-            localStorage.setItem("isLoggedIn", "true");
-            sessionStorage.setItem("redirected", "true"); // Prevent extra redirects
-            window.location.href = "index.html";
-        }
-
         function logoutUser() {
             localStorage.removeItem("isLoggedIn");
-            sessionStorage.removeItem("redirected"); // Reset session redirect flag
-            window.location.href = "welcome.html";
+            window.location.href = "later.html"; // Redirects to thank-you page
         }
     </script>
 </head>
@@ -176,5 +163,4 @@
         &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
     </footer>
 </body>
-    </html>
-        
+</html>
