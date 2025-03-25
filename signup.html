@@ -1,89 +1,90 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Sign Up | Ved Web Novel</title>
+    <title>Signup - Ved Webnovel Hub</title>
     <style>
         body {
-            text-align: center;
-            background: #121212;
-            color: white;
             font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0c0c0c, #1b1b1b);
+            color: white;
+            text-align: center;
         }
         .container {
+            margin: 50px auto;
             max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px #facc15;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
         }
-        input, button {
+        input {
             width: 90%;
-            margin: 10px 0;
-            padding: 12px;
-            border: none;
+            padding: 10px;
+            margin: 8px 0;
             border-radius: 5px;
+            border: none;
         }
         button {
-            background-color: #facc15;
-            font-weight: bold;
+            padding: 12px;
+            width: 100%;
+            background: #facc15;
+            color: black;
+            border: none;
             cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background: orange;
         }
     </style>
 </head>
 <body>
 
-    <h2>🔥 Create an Account</h2>
-
     <div class="container">
-        <input type="text" id="username" placeholder="Enter your username">
-        <input type="email" id="email" placeholder="Enter your email">
-        <input type="password" id="password" placeholder="Enter your password">
-        <button id="signup-btn">Sign Up</button>
-        <p>Already have an account? <a href="signin.html">Sign in</a></p>
+        <h1>Signup</h1>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="signup-btn">Signup</button>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
     </div>
 
+    <!-- Firebase Setup -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBviXBuWeEQrPny6BFQsUTrHZjwPuyvEPo",
             authDomain: "vedwebnovel.firebaseapp.com",
             projectId: "vedwebnovel",
-            storageBucket: "vedwebnovel.firebasestorage.app",
+            storageBucket: "vedwebnovel.appspot.com",
             messagingSenderId: "542714134112",
             appId: "1:542714134112:web:93559ebbcc9a68b8394d05"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        document.getElementById("signup-btn").addEventListener("click", function() {
-            const username = document.getElementById("username").value;
+        // Signup function
+        document.getElementById("signup-btn").addEventListener("click", () => {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            if (!username || !email || !password) {
-                alert("All fields are required.");
-                return;
-            }
-
             createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    return updateProfile(userCredential.user, { displayName: username });
-                })
                 .then(() => {
-                    alert("Account created successfully!");
-                    window.location.href = "index.html";
+                    alert("Signup Successful! Redirecting to login...");
+                    window.location.href = "login.html";
                 })
-                .catch((error) => {
-                    alert("Error: " + error.message);
+                .catch(error => {
+                    alert(error.message);
                 });
         });
     </script>
 
 </body>
 </html>
+
