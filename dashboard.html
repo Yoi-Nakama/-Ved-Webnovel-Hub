@@ -128,11 +128,12 @@
     <div class="container">
         <h1>Welcome to Ved Webnovel Hub</h1>
         <p id="user-email">Loading...</p>
+        <p id="user-uid"></p>
 
         <!-- 🔥 BUTTONS -->
-        <button class="btn signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
-        <button class="btn signin-btn" onclick="window.location.href='signin.html'">Sign In</button>
-        <button class="btn logout-btn" id="logout-btn">Logout</button>
+        <button class="btn signup-btn" id="signup-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+        <button class="btn signin-btn" id="signin-btn" onclick="window.location.href='signin.html'">Sign In</button>
+        <button class="btn logout-btn" id="logout-btn" style="display: none;">Logout</button>
     </div>
 
     <!-- 🔥 FOOTER -->
@@ -164,8 +165,15 @@
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
+                document.getElementById("user-uid").innerText = `User ID: ${user.uid}`;
+
+                // Hide signup & signin buttons, show logout button
+                document.getElementById("signup-btn").style.display = "none";
+                document.getElementById("signin-btn").style.display = "none";
+                document.getElementById("logout-btn").style.display = "inline-block";
             } else {
-                window.location.href = "signin.html"; // Redirect to sign-in if not logged in
+                // If no user, redirect to signin
+                window.location.href = "signin.html";
             }
         });
 
