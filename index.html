@@ -15,7 +15,7 @@
             padding: 0;
             animation: fadeIn 1s ease-in;
         }
-
+        
         /* 🔥 HEADER */
         header {
             background: #181818;
@@ -81,15 +81,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 🔥 FEATURED NOVELS BOX */
-        .featured-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
         /* 🔥 LOGOUT BUTTON */
         .logout-btn {
             background: red;
@@ -113,6 +104,26 @@
             margin-top: 35px;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if user is logged in
+            if (!localStorage.getItem("isLoggedIn")) {
+                console.log("User not logged in, allowing free access.");
+            }
+        });
+
+        function loginUser() {
+            localStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("redirected", "true"); // Prevent extra redirects
+            window.location.href = "index.html";
+        }
+
+        function logoutUser() {
+            localStorage.removeItem("isLoggedIn");
+            sessionStorage.removeItem("redirected"); // Reset session redirect flag
+            window.location.href = "welcome.html";
+        }
+    </script>
 </head>
 <body>
 
@@ -153,47 +164,16 @@
             <li>🚀 <b>A Place To Start</b> - You don’t need to be famous to belong here.</li>
         </ul>
 
-        <h2>🌟 FEATURED NOVELS</h2>
-        <div class="featured-box">
-            <p>📢 No novels yet! First uploads will be featured here. <b>Coming Soon...</b></p>
-        </div>
-
-        <h2>📝 COMMUNITY HIGHLIGHTS</h2>
-        <p>📣 <b>Today's Writing Challenge:</b> "Write a story where the villain wins."</p>
-        <p>💬 <b>Discussion:</b> "Is writing talent or just practice?"</p>
-        <p>🎨 <b>Looking for a Cover?</b> Check out recommended artists!</p>
-
         <h2>📝 READY TO START?</h2>
         <p>Sign up today and be part of <b>something real.</b></p>
     </div>
 
     <!-- 🔥 LOGOUT BUTTON -->
-    <button class="logout-btn" onclick="logout()">Logout</button>
+    <button class="logout-btn" onclick="logoutUser()">Logout</button>
 
     <!-- 🔥 FOOTER -->
     <footer>
         &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
     </footer>
-
-    <script>
-        // ✅ Login check (redirects if not logged in)
-        document.addEventListener("DOMContentLoaded", function () {
-            if (!localStorage.getItem("loggedIn")) {
-                window.location.href = "welcome.html";
-            }
-        });
-
-        function logout() {
-            localStorage.removeItem("loggedIn");
-            alert("👋 Logged out successfully!");
-            window.location.href = "welcome.html";
-        }
-
-        function goToSettings() {
-            window.location.href = "settings.html";
-        }
-    </script>
-
 </body>
-    </html>
-    
+</html>
