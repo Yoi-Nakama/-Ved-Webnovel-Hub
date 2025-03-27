@@ -110,15 +110,6 @@
             margin-top: 30px;
         }
 
-        /* 🔥 PREVIEW SECTION */
-        .preview-container {
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-
         /* 🔥 FILE UPLOAD STYLING */
         .file-input {
             border: 2px dashed #facc15;
@@ -199,25 +190,25 @@
     <script>
         document.getElementById("uploadForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            
-            let authorName = document.getElementById("authorName").value;
-            let novelTitle = document.getElementById("novelTitle").value;
-            let file = document.getElementById("uploadFile").files[0];
 
-            if (!file) {
-                alert("Please upload a novel file.");
-                return;
-            }
+            let formData = new FormData();
+            formData.append("authorName", document.getElementById("authorName").value);
+            formData.append("novelTitle", document.getElementById("novelTitle").value);
+            formData.append("genre", document.getElementById("genre").value);
+            formData.append("description", document.getElementById("description").value);
+            formData.append("coverUpload", document.getElementById("coverUpload").files[0]);
+            formData.append("uploadFile", document.getElementById("uploadFile").files[0]);
 
             document.getElementById("uploadStatus").innerText = "Uploading...";
 
-            setTimeout(() => {
-                document.getElementById("uploadStatus").innerText = "✅ Novel Uploaded Successfully! (Manual Approval Required)";
-                alert("Your novel has been submitted. Admin will review and publish it soon!");
-            }, 2000);
+            fetch("https://script.google.com/macros/s/AKfycbwaeQI1U4l4uFRvEQuy9CY71j5YtY3P5Dk6bUpGZtGaA9Ims_4Ec9aJUm2bf0-49Q/exec", {
+                method: "POST",
+                body: formData
+            }).then(response => response.text())
+              .then(data => document.getElementById("uploadStatus").innerText = "✅ Upload Successful!")
+              .catch(error => document.getElementById("uploadStatus").innerText = "❌ Upload Failed");
         });
     </script>
 
 </body>
 </html>
-
