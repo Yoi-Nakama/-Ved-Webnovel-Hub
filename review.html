@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 Novel Reviews - Ved Webnovel Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #111, #222);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #181818;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .review-container {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .rating span {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        .review-input {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #facc15;
+            color: #111;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: #111;
+            padding: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>⭐ Review & Rate "Fractured Horizons"</header>
+
+    <div class="review-container">
+        <div class="rating">
+            <span data-value="1">⭐</span>
+            <span data-value="2">⭐</span>
+            <span data-value="3">⭐</span>
+            <span data-value="4">⭐</span>
+            <span data-value="5">⭐</span>
+        </div>
+
+        <textarea class="review-input" id="reviewText" placeholder="Write your thoughts..."></textarea>
+        <button onclick="submitReview()">Submit Review</button>
+    </div>
+
+    <footer>&copy; 2024 Ved Webnovel Hub.</footer>
+
+    <script>
+        function submitReview() {
+            localStorage.setItem("averageRating", "4.6");
+            localStorage.setItem("totalReviews", "13");
+            alert("Review Submitted!");
+        }
+    </script>
+
+</body>
+</html>
