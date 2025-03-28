@@ -125,20 +125,30 @@
         /* 🔥 FAKE/SCAM WARNING MESSAGE */
         .warning-message {
             position: fixed;
-            bottom: 0;
+            top: 20px; /* Adjusted position */
             width: 100%;
             background-color: red;
             color: white;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             text-align: center;
-            padding: 10px;
-            animation: glowRed 1.5s infinite alternate;
+            padding: 12px;
+            border-radius: 5px;
+            animation: glowRed 1.5s infinite alternate, shake 0.5s infinite;
+            cursor: pointer;
+            text-transform: uppercase;
         }
 
         @keyframes glowRed {
             0% { text-shadow: 0 0 10px red; }
             100% { text-shadow: 0 0 20px red, 0 0 30px red; }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
         }
     </style>
 </head>
@@ -202,37 +212,13 @@
     </div>
 
     <!-- 🔥 FAKE/SCAM WARNING MESSAGE -->
-    <div class="warning-message">
-        FAKE/SCAM - SIGN IN TO USE REAL WEBSITE
+    <div class="warning-message" onclick="window.location.href='signup.html';">
+        FAKE/SCAM - SIGNUP TO UPLOAD YOUR NOVEL!!
     </div>
 
     <!-- 🔥 FOOTER -->
     <footer>
         &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
     </footer>
-
-    <script>
-        document.getElementById("uploadForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            let formData = new FormData();
-            formData.append("authorName", document.getElementById("authorName").value);
-            formData.append("novelTitle", document.getElementById("novelTitle").value);
-            formData.append("genre", document.getElementById("genre").value);
-            formData.append("description", document.getElementById("description").value);
-            formData.append("coverUpload", document.getElementById("coverUpload").files[0]);
-            formData.append("uploadFile", document.getElementById("uploadFile").files[0]);
-
-            document.getElementById("uploadStatus").innerText = "Uploading...";
-
-            fetch("https://script.google.com/macros/s/AKfycbwaeQI1U4l4uFRvEQuy9CY71j5YtY3P5Dk6bUpGZtGaA9Ims_4Ec9aJUm2bf0-49Q/exec", {
-                method: "POST",
-                body: formData
-            }).then(response => response.text())
-              .then(data => document.getElementById("uploadStatus").innerText = "✅ Upload Successful!")
-              .catch(error => document.getElementById("uploadStatus").innerText = "❌ Upload Failed");
-        });
-    </script>
-
 </body>
 </html>
