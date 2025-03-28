@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractured Horizons - Novel Overview</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            margin: 0;
+        }
+        .settings-icon {
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .settings-icon:hover {
+            color: #f39c12;
+        }
+        .settings-panel {
+            display: none;
+            position: fixed;
+            right: 10px;
+            top: 50px;
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        .settings-panel select {
+            width: 100%;
+            margin: 5px 0;
+        }
+        .novel-header img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .novel-details {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+        }
+        .genre-selection button {
+            background: #292929;
+            color: #ffffff;
+            padding: 8px 15px;
+            border: 1px solid #f39c12;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .genre-selection button:hover {
+            background: #f39c12;
+            color: #121212;
+        }
+        .rating i {
+            color: #f39c12;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .review-section {
+            margin-top: 30px;
+        }
+        .review-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #222;
+            border-radius: 5px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .share-buttons a {
+            padding: 10px 15px;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .facebook { background: #3b5998; }
+        .twitter { background: #1da1f2; }
+        .whatsapp { background: #25d366; }
+    </style>
+</head>
+<body onload="applySettings()">
+
+    <div class="container">
+        <!-- Header with Settings Icon -->
+        <div class="header">
+            <h1>Fractured Horizons: Chronicles of the Unseen</h1>
+            <i class="fas fa-cog settings-icon" title="Settings" onclick="toggleSettings()"></i>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settingsPanel">
+            <label for="fontSize">Font Size:</label>
+            <select id="fontSize" onchange="updateSettings()">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+            </select>
+            <label for="theme">Theme:</label>
+            <select id="theme" onchange="updateSettings()">
+                <option value="dark" selected>Dark</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+
+        <!-- Novel Cover -->
+        <div class="novel-header">
+            <img src="fractured-horizons-cover.jpg" alt="Fractured Horizons Cover">
+        </div>
+
+        <!-- Novel Details -->
+        <div class="novel-details">
+            <h2>Synopsis</h2>
+            <p>
+                The future was supposed to be bright. Humanity had reached unparalleled heights, 
+                building a world shaped by progress, peace, and promise...
+            </p>
+
+            <h2>Author: Aryan Ved</h2>
+            <p>Aryan Ved is a storyteller blending action, fantasy, and deep human emotions.</p>
+        </div>
+
+        <!-- Rating System -->
+        <div class="review-section">
+            <h2>Rate This Novel</h2>
+            <div class="rating">
+                <i class="fas fa-star" onclick="rateNovel(1)"></i>
+                <i class="fas fa-star" onclick="rateNovel(2)"></i>
+                <i class="fas fa-star" onclick="rateNovel(3)"></i>
+                <i class="fas fa-star" onclick="rateNovel(4)"></i>
+                <i class="fas fa-star" onclick="rateNovel(5)"></i>
+            </div>
+            <p id="rating-text">Click a star to rate</p>
+        </div>
+
+        <!-- Review Section -->
+        <div class="review-box" id="reviewBox">
+            <textarea placeholder="Write your review..." id="reviewText"></textarea>
+            <button onclick="submitReview()">Submit</button>
+            <p id="displayReview"></p>
+        </div>
+
+        <!-- Share Buttons -->
+        <div class="share-buttons">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_PAGE_LINK" class="facebook" target="_blank">Share on Facebook</a>
+            <a href="https://twitter.com/intent/tweet?url=YOUR_PAGE_LINK" class="twitter" target="_blank">Share on Twitter</a>
+            <a href="https://api.whatsapp.com/send?text=Check%20this%20out:%20YOUR_PAGE_LINK" class="whatsapp" target="_blank">Share on WhatsApp</a>
+        </div>
+    </div>
+
+<script>
+    function toggleSettings() {
+        let panel = document.getElementById("settingsPanel");
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+
+    function updateSettings() {
+        let theme = document.getElementById("theme").value;
+        localStorage.setItem("theme", theme);
+        applySettings();
+    }
+
+    function applySettings() {
+        let theme = localStorage.getItem("theme") || "dark";
+        let bgColor = theme === "light" ? "#ffffff" : "#121212";
+        let textColor = theme === "light" ? "#000000" : "#ffffff";
+
+        document.body.style.backgroundColor = bgColor;
+        document.body.style.color = textColor;
+
+        document.querySelector(".novel-details").style.backgroundColor = theme === "light" ? "#f0f0f0" : "#1e1e1e";
+        document.querySelector(".settings-panel").style.backgroundColor = theme === "light" ? "#e0e0e0" : "#1e1e1e";
+    }
+
+    function submitReview() {
+        let review = document.getElementById("reviewText").value.trim();
+        if (!review) {
+            alert("Please write something before submitting!");
+            return;
+        }
+        localStorage.setItem("userReview", review);
+        document.getElementById("displayReview").innerText = review;
+        alert("Review submitted successfully!");
+    }
+</script>
+
+</body>
+</html>
