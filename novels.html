@@ -1,11 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 Browse Novels - Ved Webnovel Hub</title>
+    <title>📖 Fractured Horizons - Ved Webnovel Hub</title>
     <style>
-        /* 🔥 GLOBAL STYLES - Smooth Dark Mode */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
@@ -13,10 +12,8 @@
             color: white;
             margin: 0;
             padding: 0;
-            animation: fadeIn 1s ease-in;
         }
 
-        /* 🔥 HEADER - Glowing Animated Effect */
         header {
             background: #181818;
             padding: 20px;
@@ -32,11 +29,11 @@
             100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
         }
 
-        /* 🔥 NAVBAR */
         nav {
             background: #292929;
             padding: 12px;
         }
+
         nav a {
             color: white;
             text-decoration: none;
@@ -44,53 +41,26 @@
             font-size: 18px;
             transition: 0.3s;
         }
+
         nav a:hover {
             color: #facc15;
             text-shadow: 0 0 8px #facc15;
             transform: scale(1.1);
         }
 
-        /* 🔥 NOVEL LIST CONTAINER */
         .novel-container {
             margin: 30px auto;
-            max-width: 1000px;
+            max-width: 800px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        /* 🔥 SEARCH & SORT OPTIONS */
-        .controls {
-            margin: 15px 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .controls input, .controls select {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            font-size: 16px;
-            width: 200px;
-            outline: none;
-        }
-
-        /* 🔥 NOVEL CARDS */
-        .novel-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
         .novel-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            padding: 15px;
-            width: 250px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -103,29 +73,30 @@
 
         .novel-card img {
             width: 100%;
-            height: 200px;
+            max-width: 400px;
             border-radius: 5px;
             object-fit: cover;
         }
 
-        .novel-card h3 {
+        .rating-display {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #facc15;
+        }
+
+        .novel-card h2 {
             margin: 10px 0;
         }
 
         .novel-card p {
-            font-size: 14px;
+            font-size: 16px;
             color: #ccc;
-        }
-
-        .novel-card .rating, .novel-card .views {
-            font-size: 14px;
-            margin-top: 5px;
         }
 
         .novel-card a {
             display: block;
-            margin-top: 10px;
-            padding: 8px;
+            margin-top: 15px;
+            padding: 10px;
             background: #facc15;
             color: #111;
             text-decoration: none;
@@ -137,7 +108,6 @@
             background: #e0b712;
         }
 
-        /* 🔥 FOOTER */
         footer {
             background: #111;
             padding: 15px;
@@ -148,67 +118,46 @@
 </head>
 <body>
 
-    <!-- 🔥 HEADER -->
     <header>
-        Browse & Discover Novels!
+        Fractured Horizons: Chronicles of the Unseen
     </header>
 
-    <!-- 🔥 NAVBAR -->
     <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="novels.html">📖 Novels</a> |
-        <a href="upload.html">📝 Upload</a> |
-        <a href="genres.html">🎭 Genres</a> |
-        <a href="search.html">🔍 Search</a> |
-        <a href="about.html">❓ About</a> |
-        <a href="contact.html">📩 Contact</a>
+        <a href="../index.html">🏠 Home</a> |
+        <a href="../novels.html">📖 Novels</a> |
+        <a href="../reviews.html">⭐ Reviews</a> |
+        <a href="../genres.html">🎭 Genres</a> |
+        <a href="../search.html">🔍 Search</a> |
+        <a href="../about.html">❓ About</a> |
+        <a href="../contact.html">📩 Contact</a>
     </nav>
 
-    <!-- 🔥 SEARCH & FILTER -->
-    <div class="controls">
-        <input type="text" id="searchInput" placeholder="🔍 Search novels...">
-        <select id="sortOption">
-            <option value="views">🔥 Most Popular</option>
-            <option value="rating">⭐ Highest Rated</option>
-        </select>
-    </div>
-
-    <!-- 🔥 NOVEL LIST CONTAINER -->
     <div class="novel-container">
-        <h2>📖 Latest Webnovels</h2>
-        <p>Explore the newest additions and trending stories!</p>
+        <div class="novel-card">
+            <img src="../images/fractured-horizons-cover.jpg" alt="Fractured Horizons Cover" loading="lazy">
+            <h2>Fractured Horizons: Chronicles of the Unseen</h2>
+            <p class="genre">Genre: Fantasy</p>
+            <p>A world fractured by chaos, where unseen forces shape destiny. Join the journey beyond the veil of reality.</p>
 
-        <!-- 🔥 NOVEL LIST -->
-        <div class="novel-list" id="novelList">
-            <!-- Novels will be dynamically added here -->
+            <p class="rating-display">⭐ Average Rating: <span id="averageRating">4.5</span>/5 (Based on <span id="totalReviews">12</span> Reviews)</p>
+
+            <a href="fractured-horizons/prologue.html">📖 Read Latest Chapter</a>
         </div>
     </div>
 
-    <!-- 🔥 FOOTER -->
     <footer>
         &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
     </footer>
 
     <script>
-        let novels = [
-            { title: "Solo Leveling", author: "Chugong", genre: "Action", rating: 5, views: 100000, cover: "https://example.com/solo.jpg", link: "read.html?novel=solo-leveling" },
-            { title: "Overlord", author: "Kugane Maruyama", genre: "Fantasy", rating: 4, views: 80000, cover: "https://example.com/overlord.jpg", link: "read.html?novel=overlord" },
-            { title: "RSSG", author: "Lucky Old Cat", genre: "Sci-Fi", rating: 5, views: 120000, cover: "https://example.com/rssg.jpg", link: "read.html?novel=rssg" }
-        ];
-
-        function loadNovels() {
-            let list = document.getElementById('novelList');
-            list.innerHTML = "";
-            novels.forEach(novel => {
-                let card = document.createElement('div');
-                card.className = "novel-card";
-                card.innerHTML = `<img src="${novel.cover}" loading="lazy"><h3>${novel.title}</h3><p>✍️ ${novel.author}</p><p>🎭 ${novel.genre}</p><p>⭐ ${novel.rating}</p><p>👀 ${novel.views} Views</p><a href="${novel.link}">📖 Read Now</a>`;
-                list.appendChild(card);
-            });
+        function updateRating() {
+            let avgRating = localStorage.getItem("averageRating") || "4.5";
+            let totalReviews = localStorage.getItem("totalReviews") || "12";
+            document.getElementById("averageRating").innerText = avgRating;
+            document.getElementById("totalReviews").innerText = totalReviews;
         }
 
-        document.getElementById('sortOption').onchange = () => { novels.sort((a, b) => b.views - a.views); loadNovels(); };
-        window.onload = loadNovels;
+        updateRating();
     </script>
 
 </body>
