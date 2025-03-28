@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 Upload Your Novel - Ved Webnovel Hub</title>
+    <style>
+        /* 🔥 GLOBAL STYLES */
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #111, #222);
+            color: white;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* 🔥 HEADER */
+        header {
+            background: #181818;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 10px #facc15; }
+            100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
+        }
+
+        /* 🔥 NAVBAR */
+        nav {
+            background: #292929;
+            padding: 12px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #facc15;
+            text-shadow: 0 0 8px #facc15;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 UPLOAD FORM CONTAINER */
+        .upload-container {
+            margin: 30px auto;
+            max-width: 700px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: slideIn 1s ease-in-out;
+            text-align: left;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 🔥 FORM INPUTS */
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: #222;
+            color: white;
+        }
+
+        input:focus, textarea:focus {
+            border: 1px solid #facc15;
+            box-shadow: 0 0 10px #facc15;
+            outline: none;
+        }
+
+        /* 🔥 BUTTONS */
+        button {
+            padding: 12px 15px;
+            font-size: 16px;
+            background: #facc15;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #e0b712;
+            transform: scale(1.1);
+        }
+
+        /* 🔥 FOOTER */
+        footer {
+            background: #111;
+            padding: 15px;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔥 HEADER -->
+    <header>
+        Upload Your Novel & Share Your Story!
+    </header>
+
+    <!-- 🔥 NAVBAR -->
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="novels.html">📖 Novels</a> |
+        <a href="uploadnovels.html">📝 Upload</a> |
+        <a href="genres.html">🎭 Genres</a> |
+        <a href="search.html">🔍 Search</a> |
+        <a href="about.html">❓ About</a> |
+        <a href="contact.html">📩 Contact</a>
+    </nav>
+
+    <!-- 🔥 UPLOAD CONTAINER -->
+    <div class="upload-container">
+        <h2>📜 Submit Your Novel</h2>
+        <p>Fill in the details and upload your novel for the world to see!</p>
+
+        <form id="uploadForm">
+            <label for="authorName">👤 Author Name:</label>
+            <input type="text" id="authorName" placeholder="Enter your author name" required>
+
+            <label for="novelTitle">📖 Novel Title:</label>
+            <input type="text" id="novelTitle" placeholder="Enter the title of your novel" required>
+
+            <label for="genre">🎭 Genre:</label>
+            <select id="genre">
+                <option value="Action">⚔️ Action</option>
+                <option value="Adventure">🌍 Adventure</option>
+                <option value="Comedy">😂 Comedy</option>
+                <option value="Fantasy">🧙 Fantasy</option>
+                <option value="Horror">👻 Horror</option>
+                <option value="Mystery">🕵️ Mystery</option>
+                <option value="Sci-Fi">🚀 Sci-Fi</option>
+                <option value="Romance">❤️ Romance</option>
+                <option value="Drama">🎭 Drama</option>
+                <option value="Historical">🏰 Historical</option>
+            </select>
+
+            <label for="description">📝 Short Description:</label>
+            <textarea id="description" placeholder="Write a short description of your novel..." maxlength="500" required></textarea>
+
+            <label for="coverUpload">📸 Upload Cover Image:</label>
+            <input type="file" id="coverUpload" accept="image/png, image/jpeg">
+
+            <label for="uploadFile">📂 Upload Novel (PDF/DOCX/TXT):</label>
+            <input type="file" id="uploadFile" accept=".pdf,.docx,.txt" required>
+
+            <button type="button" onclick="confirmUpload()">📤 Upload Novel</button>
+        </form>
+
+        <p id="uploadStatus"></p>
+    </div>
+
+    <!-- 🔥 FOOTER -->
+    <footer>
+        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
+    </footer>
+
+    <!-- 🔥 JAVASCRIPT FOR REDIRECTION -->
+    <script>
+        function confirmUpload() {
+            let confirmation = confirm("📢 You will be redirected to the official upload form.\nDo you want to continue?");
+            if (confirmation) {
+                window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSenOB-LsMNtzfN1IVYeyFH2Ln8X5S7YJdY0dY5Wb6fD2efAcw/viewform?usp=header";
+            }
+        }
+    </script>
+
+</body>
+</html>
