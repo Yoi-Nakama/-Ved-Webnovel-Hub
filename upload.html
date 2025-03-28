@@ -121,6 +121,25 @@
         .file-input:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+
+        /* 🔥 FAKE/SCAM WARNING MESSAGE */
+        .warning-message {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            animation: glowRed 1.5s infinite alternate;
+        }
+
+        @keyframes glowRed {
+            0% { text-shadow: 0 0 10px red; }
+            100% { text-shadow: 0 0 20px red, 0 0 30px red; }
+        }
     </style>
 </head>
 <body>
@@ -180,6 +199,11 @@
         </form>
 
         <p id="uploadStatus"></p>
+    </div>
+
+    <!-- 🔥 FAKE/SCAM WARNING MESSAGE -->
+    <div class="warning-message">
+        FAKE/SCAM - SIGN IN TO USE REAL WEBSITE
     </div>
 
     <!-- 🔥 FOOTER -->
