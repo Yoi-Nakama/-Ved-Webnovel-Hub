@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractured Horizons - Prologue</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #f8c471;
+        }
+
+        .prologue-text {
+            text-align: justify;
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .nav-button {
+            background-color: #f8c471;
+            color: #121212;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .nav-button:hover {
+            background-color: #d4ac6e;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .font-size {
+            display: inline-block;
+            padding: 5px 10px;
+            cursor: pointer;
+            background: #333;
+            color: #f8c471;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .font-size:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Fractured Horizons</h1>
+    <h2>Prologue: The Day the Cracks Appeared</h2>
+    
+    <div class="prologue-text" id="text">
+        <p><i>‘The city is gone.’</i></p>
+
+        <p>Prakash opened his eyes, gasping for air as icy water lapped at his broken body. The river’s current was weak here, but it still carried the stench of smoke and ash from upstream. He tried to move, but pain shot through his left side, paralyzing him in place.</p>
+
+        <p>It took a moment for him to remember: the long drive he had taken yesterday, leaving the bustling city Solivana behind with Tom, his loyal dog, running alongside him. His family—his wife and two children—had stayed behind in the city. They had been planning to visit him later, after finishing some errands.</p>
+
+        <p>Now? There was no city.</p>
+
+        <p>Prakash blinked, his vision swimming as the world tilted around him. Above him, the once-familiar sky was fractured—jagged cracks ran across its surface, glowing faintly like dying embers. It wasn’t just the city that had disappeared; something far worse had happened.</p>
+
+        <p>His hand grazed against something soft and warm. Turning his head slightly, he saw Tom—a scrappy brown mutt—whining and licking his face. The dog’s fur was wet and matted, its body trembling. Prakash tried to lift his hand to pet him, but his arm refused to obey.</p>
+
+        <p>Memories flooded back in jagged fragments: the sound of a deafening roar, the ground splitting open beneath him, and the sudden freefall into the river below. His bike had collided with a car on the bridge just before he fell, the impact so violent that it crushed the driver instantly beneath the back tire. Prakash could still hear the man’s final scream echoing in his ears.</p>
+
+        <p>Tom barked sharply, snapping Prakash back to the present. The dog climbed up the embankment, then turned to look back at him, as if urging him to follow.</p>
+
+        <p>“Tom…” Prakash muttered, forcing himself to roll onto his stomach. Every movement sent waves of agony through his body, but he grit his teeth and pushed forward. Slowly, agonizingly, he crawled up the embankment, leaving a trail of blood and mud in his wake.</p>
+
+        <p>At the top, he froze.</p>
+
+        <p>The bridge above him was in ruins, its twisted metal beams jutting out like broken bones. Vehicles were piled haphazardly, their frames crushed and burnt. The car his bike had collided with was perched precariously at the edge, its driver still visible in the seat, his lifeless face twisted in horror.</p>
+
+        <p>But it wasn’t the wreckage that stole Prakash’s breath. It was the city—or rather, where the city had been.</p>
+
+        <p>In its place was a massive, gaping void. The ground had collapsed in on itself, leaving behind a jagged black scar that stretched as far as the eye could see. The edges of the chasm shimmered faintly, as though the air itself was warped and broken.</p>
+
+        <p>Prakash’s knees buckled, and he fell to the ground, his head spinning. “How… how can this be real?” he whispered, his voice trembling.</p>
+
+        <p>Tom nudged him, whining softly, but Prakash barely noticed. His thoughts were consumed by his family—his wife, his children—who had been in that city. Were they gone, too? Swallowed by the earth like everything else?</p>
+
+        <p>Above, the fractured sky seemed to mock him, its cracks glowing faintly in the early dawn. It was a sight so unnatural, so alien, that Prakash could barely comprehend it.</p>
+
+        <p>He screamed, his voice raw and hoarse. “Why? Why did this happen to us?”</p>
+
+        <p>As his strength drained away, Prakash collapsed onto the ground, unconscious. Tom curled up beside him, licking his wounds and whimpering softly. Somewhere in the distance, the faint sound of helicopter blades broke the eerie silence, drawing closer with each passing moment.</p>
+    </div>
+
+    <div class="controls">
+        <span class="font-size" onclick="adjustFontSize(1)">A+</span>
+        <span class="font-size" onclick="adjustFontSize(-1)">A-</span>
+    </div>
+
+    <div class="chapter-nav">
+        <a href="#" class="nav-button">← Previous Chapter</a>
+        <a href="#" class="nav-button">Next Chapter →</a>
+    </div>
+</div>
+
+<script>
+    function adjustFontSize(change) {
+        let text = document.getElementById("text");
+        let currentSize = window.getComputedStyle(text, null).getPropertyValue('font-size');
+        let newSize = parseFloat(currentSize) + change;
+        text.style.fontSize = newSize + "px";
+    }
+</script>
+
+</body>
+</html>
