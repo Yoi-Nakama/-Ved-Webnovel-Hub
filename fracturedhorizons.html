@@ -13,6 +13,7 @@
             color: white;
             margin: 0;
             padding: 0;
+            transition: background 0.5s, color 0.5s;
         }
 
         header {
@@ -77,21 +78,11 @@
             max-width: 400px;
             border-radius: 5px;
             object-fit: cover;
+            transition: opacity 0.3s;
         }
 
-        .rating-display {
-            font-size: 20px;
-            margin-top: 10px;
-            color: #facc15;
-        }
-
-        .novel-card h2 {
-            margin: 10px 0;
-        }
-
-        .novel-card p {
-            font-size: 16px;
-            color: #ccc;
+        .novel-card img:hover {
+            opacity: 0.9;
         }
 
         .novel-card a {
@@ -103,67 +94,77 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
+            transition: background 0.3s;
         }
 
         .novel-card a:hover {
             background: #e0b712;
         }
 
-        .rating button {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            transition: 0.2s;
+        .settings-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 10px white;
         }
 
-        .rating button:hover {
-            transform: scale(1.2);
-        }
-
-        .review-section {
-            margin-top: 20px;
-        }
-
-        .review-section textarea {
-            width: 90%;
-            max-width: 500px;
-            padding: 10px;
+        .settings-panel button {
+            margin: 5px;
+            padding: 8px 15px;
             font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .review-section button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background: #facc15;
-            border: none;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
+            border: none;
             border-radius: 5px;
-        }
-
-        .share-buttons a {
-            margin: 10px;
-            font-size: 18px;
-            color: white;
-            text-decoration: none;
             transition: 0.3s;
         }
 
-        .share-buttons a:hover {
-            text-shadow: 0 0 8px white;
+        .settings-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #facc15;
+            color: black;
+            padding: 12px;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .settings-btn:hover {
+            transform: scale(1.1);
         }
 
         footer {
-            background: #111;
-            padding: 15px;
+            background: #181818;
+            padding: 10px;
+            text-align: center;
             font-size: 14px;
-            margin-top: 30px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
 
-        /* Mobile responsiveness */
+        /* Light Mode */
+        .light-mode {
+            background: white;
+            color: black;
+        }
+
+        /* Eye Comfort Mode */
+        .yellow-mode {
+            background: #f5e3b8;
+            color: #222;
+        }
+
+        /* Responsive adjustments */
         @media (max-width: 600px) {
             .novel-container {
                 width: 90%;
@@ -177,85 +178,60 @@
         }
     </style>
 </head>
-<body onload="applyTheme()">
+<body onload="applySettings()">
 
-    <header>
-        Fractured Horizons: Chronicles of the Unseen
-    </header>
+    <header>📖 Fractured Horizons - Ved Webnovel Hub</header>
 
     <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="novels.html">📖 Novels</a> |
-        <a href="reviews.html">⭐ Reviews</a> |
-        <a href="genres.html">🎭 Genres</a> |
-        <a href="search.html">🔍 Search</a> |
-        <a href="about.html">❓ About</a> |
-        <a href="contact.html">📩 Contact</a>
+        <a href="#">Home</a>
+        <a href="#">Chapters</a>
+        <a href="#">About</a>
     </nav>
 
     <div class="novel-container">
         <div class="novel-card">
-            <img src="../images/fractured-horizons-cover.jpg" alt="Fractured Horizons Cover" loading="lazy">
-            <h2>Fractured Horizons: Chronicles of the Unseen</h2>
-            <p>A thrilling journey through a world teetering on the edge of chaos. Explore mysteries, betrayals, and the unknown.</p>
-
-            <div class="rating">
-                <p>Rate this novel:</p>
-                <button onclick="rateNovel(1)">⭐</button>
-                <button onclick="rateNovel(2)">⭐⭐</button>
-                <button onclick="rateNovel(3)">⭐⭐⭐</button>
-                <button onclick="rateNovel(4)">⭐⭐⭐⭐</button>
-                <button onclick="rateNovel(5)">⭐⭐⭐⭐⭐</button>
-            </div>
-
-            <div class="review-section">
-                <textarea id="reviewInput" placeholder="Write your review..."></textarea>
-                <button onclick="submitReview()">Submit Review</button>
-            </div>
+            <img src="images/fractured-horizons-cover.jpg" alt="Fractured Horizons Cover" loading="lazy">
+            <a href="#">Read Now</a>
         </div>
     </div>
 
-    <div class="share-buttons">
-        <p>Share this novel:</p>
-        <a id="facebookShare" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
-        <a id="twitterShare" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
-        <a id="whatsappShare" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+
+    <div class="settings-panel" id="settingsPanel">
+        <button onclick="adjustFontSize(1.1)">A+</button>
+        <button onclick="adjustFontSize(0.9)">A-</button>
+        <button onclick="toggleTheme('light-mode')">🌞 Light Mode</button>
+        <button onclick="toggleTheme('yellow-mode')">📖 Eye Comfort</button>
     </div>
 
     <footer>
-        &copy; 2025 Ved Webnovel Hub | Fractured Horizons
+        © 2025 Aryan Ved | Fractured Horizons
     </footer>
 
     <script>
-        function applyTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            document.body.classList.add(savedTheme);
-        }
-
-        function rateNovel(n) {
-            localStorage.setItem('userRating', n);
-            alert(`You rated this novel ${n} stars!`);
-        }
-
-        function submitReview() {
-            const review = document.getElementById('reviewInput').value.trim();
-            if (review.length === 0) {
-                alert("Please enter a valid review.");
-                return;
+        function adjustFontSize(scale) {
+            const body = document.body;
+            let currentSize = parseFloat(getComputedStyle(body).fontSize);
+            let newSize = currentSize * scale;
+            if (newSize >= 12 && newSize <= 24) {  
+                body.style.fontSize = newSize + 'px';
             }
-            localStorage.setItem('userReview', review);
-            alert("Review submitted!");
-            document.getElementById('reviewInput').value = '';
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const pageUrl = encodeURIComponent(window.location.href);
-            document.getElementById('facebookShare').href = `https://www.facebook.com/sharer.php?u=${pageUrl}`;
-            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?url=${pageUrl}`;
-            document.getElementById('whatsappShare').href = `https://api.whatsapp.com/send?text=${pageUrl}`;
-        });
+        function toggleTheme(theme) {
+            document.body.classList.remove('light-mode', 'yellow-mode');
+            document.body.classList.add(theme);
+        }
+
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function applySettings() {
+            document.body.classList.add('yellow-mode');
+        }
     </script>
 
 </body>
-        </html>
-        
+</html>
