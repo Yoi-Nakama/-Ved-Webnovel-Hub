@@ -3,107 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 Fractured Horizons: Chronicles of the Unseen | Ved Webnovel Hub</title>
+    <title>📚 Novels | Ved Webnovel Hub</title>
+    
+    <link rel="icon" href="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" type="image/png">
     
     <style>
-        /* 🔥 Global Styles */
+        /* 🔥 GLOBAL STYLES */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+            background: url('https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/banner.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: white;
             margin: 0;
             padding: 0;
+            animation: fadeIn 1s ease-in;
         }
 
-        /* 🔥 Header */
+        /* 🔥 HEADER */
         header {
-            background: rgba(24, 24, 24, 0.95);
-            padding: 20px;
-            font-size: 26px;
+            background: rgba(24, 24, 24, 0.85);
+            padding: 25px;
+            font-size: 32px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+            animation: glowEffect 2s infinite alternate;
         }
 
-        /* 🔥 Navbar */
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 15px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
+        }
+
+        /* 🔥 NAVBAR */
         nav {
-            background: rgba(41, 41, 41, 0.9);
-            padding: 14px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            background: rgba(41, 41, 41, 0.85);
+            padding: 12px;
         }
         nav a {
             color: white;
             text-decoration: none;
-            font-size: 17px;
+            margin: 0 18px;
+            font-size: 18px;
             transition: 0.3s;
-            padding: 10px 15px;
-            border-radius: 5px;
         }
         nav a:hover {
-            background: #facc15;
-            color: black;
-            box-shadow: 0 0 10px #facc15;
+            color: #facc15;
+            text-shadow: 0 0 10px #facc15;
             transform: scale(1.1);
         }
 
-        /* 🔥 Settings Button */
-        .settings-btn {
-            position: absolute;
-            top: 18px;
-            right: 20px;
-            font-size: 22px;
-            cursor: pointer;
-            color: #facc15;
-            transition: 0.3s;
-        }
-        .settings-btn:hover {
-            transform: rotate(30deg) scale(1.2);
+        /* 🔥 NOVEL LIST */
+        .novel-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
         }
 
-        /* 🔥 Novel Container */
-        .novel-container {
-            margin: 40px auto;
-            max-width: 850px;
-            padding: 25px;
+        .novel-card {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px;
+            width: 320px;
             text-align: center;
             transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
-        .novel-container:hover {
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        .novel-card:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
         }
 
         .novel-cover {
             width: 100%;
-            max-width: 450px;
             border-radius: 10px;
             transition: 0.3s;
-            cursor: pointer;
         }
         .novel-cover:hover {
             transform: scale(1.05);
         }
 
-        /* 🔥 Read Now Button */
         .read-now-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 28px;
-            font-size: 19px;
+            margin-top: 12px;
+            padding: 12px 22px;
+            font-size: 16px;
             font-weight: bold;
             color: black;
             background: #facc15;
             border-radius: 8px;
             transition: 0.3s;
             text-decoration: none;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
         }
         .read-now-btn:hover {
             background: #ffdb4d;
@@ -111,15 +105,39 @@
             transform: scale(1.1);
         }
 
-        /* 🔥 Footer */
-        footer {
-            background: rgba(17, 17, 17, 0.9);
-            padding: 16px;
-            font-size: 14px;
-            margin-top: 40px;
-            opacity: 0.8;
+        /* 🔥 SETTINGS BUTTON */
+        .settings-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #facc15;
+            transition: 0.3s;
+        }
+        .settings-btn:hover {
+            text-shadow: 0 0 15px #facc15;
+            transform: scale(1.3);
         }
 
+        /* 🔥 FOOTER */
+        footer {
+            background: rgba(17, 17, 17, 0.85);
+            padding: 18px;
+            font-size: 14px;
+            margin-top: 35px;
+        }
+
+        /* 🔥 LOGO */
+        .logo-container {
+            margin-top: 20px;
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+        }
     </style>
     <script>
         function goToSettings() {
@@ -132,27 +150,46 @@
     <!-- 🔥 SETTINGS BUTTON -->
     <div class="settings-btn" onclick="goToSettings()">⚙</div>
 
+    <!-- 🔥 LOGO -->
+    <div class="logo-container">
+        <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" alt="Website Logo" class="logo">
+    </div>
+
     <!-- 🔥 HEADER -->
-    <header>📖 FRACTURED HORIZONS: CHRONICLES OF THE UNSEEN</header>
+    <header>📚 NOVELS COLLECTION</header>
 
     <!-- 🔥 NAVBAR -->
     <nav>
         <a href="index.html">🏠 Home</a>
-        <a href="novels.html">📚 Novels</a>
+        <a href="novels.html">📖 Novels</a>
         <a href="upload.html">📝 Upload</a>
-        <a href="genre.html">🎭 Genre</a>
+        <a href="genres.html">🎭 Genres</a>
         <a href="search.html">🔍 Search</a>
         <a href="about.html">ℹ️ About</a>
         <a href="contact.html">📩 Contact</a>
     </nav>
 
-    <!-- 🔥 NOVEL CONTAINER -->
+    <!-- 🔥 NOVEL LIST -->
     <div class="novel-container">
-        <h2>📚 Fractured Horizons: Chronicles of the Unseen</h2>
-        <img class="novel-cover" src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/coverimagefracturedhorizons.html.jpeg" alt="Fractured Horizons Cover">
+        
+        <!-- 🔥 Novel 1 -->
+        <div class="novel-card">
+            <h2>Fractured Horizons</h2>
+            <img class="novel-cover" src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/coverimagefracturedhorizons.html.jpeg" alt="Fractured Horizons Cover">
+            <p>A world shattered by unknown forces... Can humanity survive?</p>
+            <a href="fracturedhorizons.html" class="read-now-btn">📖 Read Now</a>
+        </div>
 
-        <!-- Read Now Button -->
-        <a href="chapter1.html" class="read-now-btn">📖 Read Now</a>
+        <!-- 🔥 Add More Novels Here -->
+        <!-- 
+        <div class="novel-card">
+            <h2>Another Novel</h2>
+            <img class="novel-cover" src="YOUR_IMAGE_URL_HERE" alt="Novel Cover">
+            <p>Short description of the novel goes here.</p>
+            <a href="YOUR_NOVEL_LINK_HERE" class="read-now-btn">📖 Read Now</a>
+        </div>
+        -->
+
     </div>
 
     <!-- 🔥 FOOTER -->
