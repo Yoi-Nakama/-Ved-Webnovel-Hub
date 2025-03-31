@@ -21,16 +21,16 @@
             animation: fadeIn 1s ease-in;
         }
 
-        /* 🔥 HEADER */
+        /* 🔥 HEADER (Now Transparent) */
         header {
-            background: linear-gradient(90deg, #ff8c00, #ff4500);
+            background: rgba(0, 0, 0, 0.7); /* Transparent black */
             padding: 25px;
             font-size: 36px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 3px;
             text-shadow: 0 0 10px yellow;
-            border-bottom: 5px solid #ffdb4d;
+            border-bottom: 3px solid #ffdb4d;
         }
 
         /* 🔥 NAVBAR */
@@ -87,6 +87,7 @@
             transform: scale(1.05);
         }
 
+        /* 🔥 READ NOW BUTTON */
         .read-now-btn {
             display: inline-block;
             margin-top: 15px;
@@ -144,6 +145,17 @@
             box-shadow: 0 0 20px rgba(250, 204, 21, 0.7);
             border: 3px solid #ffdb4d;
         }
+
+        /* 🔥 BOLD COLORFUL TEXT */
+        h2 {
+            font-size: 22px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ffdb4d, #ff5733);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 8px rgba(255, 223, 0, 0.7);
+        }
+
     </style>
     <script>
         function goToSettings() {
