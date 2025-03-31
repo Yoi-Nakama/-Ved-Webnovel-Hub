@@ -1,165 +1,162 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 Fractured Horizons - Ved Webnovel Hub</title>
+    <title>📖 Fractured Horizons: Chronicles of the Unseen | Ved Webnovel Hub</title>
+    
     <style>
+        /* 🔥 Global Styles */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #111, #222);
+            background: linear-gradient(to right, #0f0f0f, #1a1a1a);
             color: white;
             margin: 0;
             padding: 0;
         }
 
+        /* 🔥 Header */
         header {
-            background: #181818;
+            background: rgba(24, 24, 24, 0.95);
             padding: 20px;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            animation: glowEffect 2s infinite alternate;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
         }
 
-        @keyframes glowEffect {
-            0% { text-shadow: 0 0 10px #facc15; }
-            100% { text-shadow: 0 0 20px #facc15, 0 0 30px #facc15; }
-        }
-
+        /* 🔥 Navbar */
         nav {
-            background: #292929;
-            padding: 12px;
+            background: rgba(41, 41, 41, 0.9);
+            padding: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
-
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
+            font-size: 17px;
             transition: 0.3s;
+            padding: 10px 15px;
+            border-radius: 5px;
         }
-
         nav a:hover {
-            color: #facc15;
-            text-shadow: 0 0 8px #facc15;
+            background: #facc15;
+            color: black;
+            box-shadow: 0 0 10px #facc15;
             transform: scale(1.1);
         }
 
+        /* 🔥 Settings Button */
+        .settings-btn {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #facc15;
+            transition: 0.3s;
+        }
+        .settings-btn:hover {
+            transform: rotate(30deg) scale(1.2);
+        }
+
+        /* 🔥 Novel Container */
         .novel-container {
-            margin: 30px auto;
-            max-width: 800px;
-            padding: 20px;
+            margin: 40px auto;
+            max-width: 850px;
+            padding: 25px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .novel-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
             text-align: center;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: 0.3s;
+        }
+        .novel-container:hover {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
         }
 
-        .novel-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .novel-card img {
+        .novel-cover {
             width: 100%;
-            max-width: 400px;
-            border-radius: 5px;
-            object-fit: cover;
+            max-width: 450px;
+            border-radius: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .novel-cover:hover {
+            transform: scale(1.05);
         }
 
-        .rating-display {
-            font-size: 20px;
-            margin-top: 10px;
-            color: #facc15;
-        }
-
-        .novel-card h2 {
-            margin: 10px 0;
-        }
-
-        .novel-card p {
-            font-size: 16px;
-            color: #ccc;
-        }
-
-        .novel-card a {
-            display: block;
-            margin-top: 15px;
-            padding: 10px;
-            background: #facc15;
-            color: #111;
-            text-decoration: none;
-            border-radius: 5px;
+        /* 🔥 Read Now Button */
+        .read-now-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            font-size: 19px;
             font-weight: bold;
+            color: black;
+            background: #facc15;
+            border-radius: 8px;
+            transition: 0.3s;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+        .read-now-btn:hover {
+            background: #ffdb4d;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.8);
+            transform: scale(1.1);
         }
 
-        .novel-card a:hover {
-            background: #e0b712;
-        }
-
+        /* 🔥 Footer */
         footer {
-            background: #111;
-            padding: 15px;
+            background: rgba(17, 17, 17, 0.9);
+            padding: 16px;
             font-size: 14px;
-            margin-top: 30px;
+            margin-top: 40px;
+            opacity: 0.8;
         }
+
     </style>
+    <script>
+        function goToSettings() {
+            window.location.href = "settings.html";
+        }
+    </script>
 </head>
 <body>
 
-    <header>
-        Fractured Horizons: Chronicles of the Unseen
-    </header>
+    <!-- 🔥 SETTINGS BUTTON -->
+    <div class="settings-btn" onclick="goToSettings()">⚙</div>
 
+    <!-- 🔥 HEADER -->
+    <header>📖 FRACTURED HORIZONS: CHRONICLES OF THE UNSEEN</header>
+
+    <!-- 🔥 NAVBAR -->
     <nav>
-        <a href="../index.html">🏠 Home</a> |
-        <a href="../novels.html">📖 Novels</a> |
-        <a href="../reviews.html">⭐ Reviews</a> |
-        <a href="../genres.html">🎭 Genres</a> |
-        <a href="../search.html">🔍 Search</a> |
-        <a href="../about.html">❓ About</a> |
-        <a href="../contact.html">📩 Contact</a> |
-        <a href="fracturedhorizons.html">📜 Read Fractured Horizons</a>
+        <a href="index.html">🏠 Home</a>
+        <a href="novels.html">📚 Novels</a>
+        <a href="upload.html">📝 Upload</a>
+        <a href="genre.html">🎭 Genre</a>
+        <a href="search.html">🔍 Search</a>
+        <a href="about.html">ℹ️ About</a>
+        <a href="contact.html">📩 Contact</a>
     </nav>
 
+    <!-- 🔥 NOVEL CONTAINER -->
     <div class="novel-container">
-        <div class="novel-card">
-            <img src="../images/fractured-horizons-cover.jpg" alt="Fractured Horizons Cover" loading="lazy">
-            <h2>Fractured Horizons: Chronicles of the Unseen</h2>
-            <p class="genre">Genre: Fantasy</p>
-            <p>A world fractured by chaos, where unseen forces shape destiny. Join the journey beyond the veil of reality.</p>
+        <h2>📚 Fractured Horizons: Chronicles of the Unseen</h2>
+        <img class="novel-cover" src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/coverimagefracturedhorizons.html.jpeg" alt="Fractured Horizons Cover">
 
-            <p class="rating-display">⭐ Average Rating: <span id="averageRating">4.5</span>/5 (Based on <span id="totalReviews">12</span> Reviews)</p>
-
-            <a href="fracturedhorizons.html">📖 Read Latest Chapter</a>
-        </div>
+        <!-- Read Now Button -->
+        <a href="chapter1.html" class="read-now-btn">📖 Read Now</a>
     </div>
 
-    <footer>
-        &copy; 2024 Ved Webnovel Hub. All Rights Reserved.
-    </footer>
-
-    <script>
-        function updateRating() {
-            let avgRating = localStorage.getItem("averageRating") || "4.5";
-            let totalReviews = localStorage.getItem("totalReviews") || "12";
-            document.getElementById("averageRating").innerText = avgRating;
-            document.getElementById("totalReviews").innerText = totalReviews;
-        }
-
-        updateRating();
-    </script>
+    <!-- 🔥 FOOTER -->
+    <footer>&copy; 2024 Ved Webnovel Hub. All Rights Reserved.</footer>
 
 </body>
 </html>
