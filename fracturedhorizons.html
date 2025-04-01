@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 Fractured Horizons - Ved Webnovel Hub</title>
-
-    <!-- Favicon -->
+    <title>📚 VED WEBNOVEL HUB - Fractured Horizons: Chronicles of the Unseen</title>
+    
+    <!-- 🔥 Added Your Image Here -->
     <link rel="icon" href="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" type="image/png">
-
+    
     <style>
         /* 🔥 GLOBAL STYLES */
         body {
@@ -18,165 +18,140 @@
             color: white;
             margin: 0;
             padding: 0;
-            transition: background 0.5s, color 0.5s;
-        }
-
-        /* Light Mode */
-        .light-mode {
-            background: white !important;
-            color: black !important;
-        }
-
-        /* Eye Comfort (Yellow Mode) */
-        .yellow-mode {
-            background: #f5deb3 !important;
-            color: #333 !important;
+            animation: fadeIn 1s ease-in;
         }
 
         /* 🔥 HEADER */
         header {
-            background: rgba(24, 24, 24, 0.9);
-            padding: 20px;
-            font-size: 26px;
+            background: rgba(24, 24, 24, 0.85);
+            padding: 25px;
+            font-size: 32px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            animation: glowEffect 2s infinite alternate;
+        }
+
+        @keyframes glowEffect {
+            0% { text-shadow: 0 0 15px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
         }
 
         /* 🔥 NAVBAR */
         nav {
-            background: rgba(41, 41, 41, 0.9);
+            background: rgba(41, 41, 41, 0.85);
             padding: 12px;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 18px;
             font-size: 18px;
             transition: 0.3s;
         }
         nav a:hover {
             color: #facc15;
             text-shadow: 0 0 10px #facc15;
+            transform: scale(1.1);
         }
 
-        /* 🔥 NOVEL CONTENT */
-        .novel-container {
-            margin: 40px auto;
-            max-width: 900px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            font-size: 16px;
+        /* 🔥 BUTTON STYLES */
+        .btn-container {
+            margin-top: 20px;
         }
 
-        .novel-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .novel-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-
-        .novel-card img {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 8px;
-        }
-
-        .novel-card a {
+        .btn {
             display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
             background: #facc15;
-            color: #111;
-            text-decoration: none;
+            color: black;
+            padding: 12px 18px;
             border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            margin: 10px;
+            text-decoration: none;
             font-weight: bold;
-            transition: background 0.3s;
         }
 
-        .novel-card a:hover {
-            background: #e0b712;
+        .btn:hover {
+            background: #d4a30d;
+            transform: scale(1.05);
         }
 
         /* 🔥 SETTINGS BUTTON */
         .settings-btn {
-            position: fixed;
-            bottom: 20px;
+            position: absolute;
+            top: 20px;
             right: 20px;
-            background: #facc15;
-            color: black;
-            padding: 12px;
-            border: none;
-            border-radius: 50%;
-            font-size: 18px;
+            font-size: 22px;
             cursor: pointer;
+            color: #facc15;
             transition: 0.3s;
         }
 
         .settings-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* 🔥 SETTINGS PANEL */
-        .settings-panel {
-            position: fixed;
-            bottom: 20px;
-            right: 80px;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            box-shadow: 0 0 10px white;
-        }
-
-        .settings-panel button {
-            margin: 5px;
-            padding: 8px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            transition: 0.3s;
+            text-shadow: 0 0 15px #facc15;
+            transform: scale(1.3);
         }
 
         /* 🔥 FOOTER */
         footer {
-            background: rgba(17, 17, 17, 0.9);
-            padding: 15px;
+            background: rgba(17, 17, 17, 0.85);
+            padding: 18px;
             font-size: 14px;
-            margin-top: 40px;
+            margin-top: 35px;
         }
 
-        /* 🔥 RESPONSIVE DESIGN */
-        @media (max-width: 600px) {
-            .novel-container {
-                width: 90%;
-            }
-
-            nav a {
-                display: block;
-                padding: 10px;
-            }
+        /* 🔥 LOGO IMAGE */
+        .logo-container {
+            margin-top: 20px;
         }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+        }
+
     </style>
+    <script>
+        function logoutUser() {
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "later.html"; // Redirects to thank-you page
+        }
+
+        function goToSettings() {
+            window.location.href = "settings.html"; // Redirects to settings page
+        }
+    </script>
 </head>
-<body onload="applySettings()">
+<body>
 
-    <!-- HEADER -->
-    <header>📖 Fractured Horizons - Ved Webnovel Hub</header>
+    <!-- 🔥 SETTINGS BUTTON -->
+    <div class="settings-btn" onclick="goToSettings()">⚙</div>
 
-    <!-- NAVIGATION -->
+    <!-- 🔥 LOGO (Newly Added) -->
+    <div class="logo-container">
+        <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" alt="Website Logo" class="logo">
+    </div>
+
+    <!-- 🔥 HEADER -->
+    <header>
+        📚 VED WEBNOVEL HUB - Fractured Horizons: Chronicles of the Unseen
+    </header>
+
+    <!-- 🔥 NAVBAR -->
     <nav>
-        <a href="index.html">Home</a>
-        <a href="chapters.html">Chapters</a>
-        <a href="about.html">About</a>
+        <a href="index.html"><b>🏠 HOME</b></a> |
+        <a href="novels.html"><b>📖 NOVELS</b></a> |
+        <a href="upload.html"><b>📝 UPLOAD</b></a> |
+        <a href="genres.html"><b>🎭 GENRES</b></a> |
+        <a href="search.html"><b>🔍 SEARCH</b></a> |
+        <a href="about.html"><b>❓ ABOUT</b></a> |
+        <a href="contact.html"><b>📩 CONTACT</b></a>
     </nav>
 
     <!-- NOVEL CONTENT -->
