@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -130,6 +130,46 @@
             box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
         }
 
+        /* 🔥 NOVEL CONTAINER */
+        .novel-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .novel-card {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .novel-card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .novel-card a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            background: #facc15;
+            color: black;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .novel-card a:hover {
+            background: #d4a30d;
+            transform: scale(1.05);
+        }
+
         /* 🔥 TRANSPARENT EFFECTS */
         .light-mode {
             background-color: rgba(255, 255, 255, 0.9);
@@ -139,11 +179,6 @@
         .yellow-mode {
             background-color: rgba(255, 255, 255, 0.7);
             color: black;
-        }
-
-        .novel-container {
-            font-size: 16px;
-            transition: font-size 0.3s ease;
         }
 
     </style>
