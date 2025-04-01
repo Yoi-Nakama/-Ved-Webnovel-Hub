@@ -8,41 +8,39 @@
     <!-- Favicon -->
     <link rel="icon" href="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" type="image/png">
 
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
     <style>
         /* 🔥 GLOBAL STYLES */
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: url('https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/fractured-horizons-bg.jpg') no-repeat center center fixed;
+            background: url('https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/banner.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white;
             margin: 0;
             padding: 0;
-            animation: fadeIn 1s ease-in;
+            transition: background 0.5s, color 0.5s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* Light Mode */
+        .light-mode {
+            background: white !important;
+            color: black !important;
+        }
+
+        /* Eye Comfort (Yellow Mode) */
+        .yellow-mode {
+            background: #f5deb3 !important;
+            color: #333 !important;
         }
 
         /* 🔥 HEADER */
         header {
             background: rgba(24, 24, 24, 0.9);
-            padding: 25px;
-            font-size: 30px;
+            padding: 20px;
+            font-size: 26px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            animation: glowEffect 2s infinite alternate;
-        }
-
-        @keyframes glowEffect {
-            0% { text-shadow: 0 0 15px #facc15; }
-            100% { text-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
         }
 
         /* 🔥 NAVBAR */
@@ -53,32 +51,30 @@
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 18px;
+            margin: 0 15px;
             font-size: 18px;
             transition: 0.3s;
         }
         nav a:hover {
             color: #facc15;
             text-shadow: 0 0 10px #facc15;
-            transform: scale(1.1);
         }
 
         /* 🔥 NOVEL CONTENT */
         .novel-container {
             margin: 40px auto;
             max-width: 900px;
-            padding: 25px;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            font-size: 16px;
         }
 
         .novel-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -91,29 +87,22 @@
             width: 100%;
             max-width: 500px;
             border-radius: 8px;
-            object-fit: cover;
-            transition: opacity 0.3s;
-        }
-
-        .novel-card img:hover {
-            opacity: 0.9;
         }
 
         .novel-card a {
             display: inline-block;
             margin-top: 15px;
-            padding: 12px 20px;
+            padding: 10px 20px;
             background: #facc15;
             color: #111;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
+            transition: background 0.3s;
         }
 
         .novel-card a:hover {
             background: #e0b712;
-            transform: scale(1.05);
         }
 
         /* 🔥 SETTINGS BUTTON */
@@ -144,8 +133,6 @@
             padding: 15px;
             border-radius: 10px;
             display: none;
-            flex-direction: column;
-            align-items: center;
             box-shadow: 0 0 10px white;
         }
 
@@ -165,14 +152,12 @@
             padding: 15px;
             font-size: 14px;
             margin-top: 40px;
-            text-align: center;
         }
 
         /* 🔥 RESPONSIVE DESIGN */
         @media (max-width: 600px) {
             .novel-container {
                 width: 90%;
-                padding: 20px;
             }
 
             nav a {
@@ -198,7 +183,7 @@
     <div class="novel-container">
         <div class="novel-card">
             <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/fractured-horizons-cover.jpg" alt="Fractured Horizons Cover" loading="lazy">
-            <a href="#">Read Now</a>
+            <a href="read.html">Read Now</a>
         </div>
     </div>
 
@@ -211,6 +196,7 @@
         <button onclick="adjustFontSize(0.9)">A-</button>
         <button onclick="toggleTheme('light-mode')">🌞 Light Mode</button>
         <button onclick="toggleTheme('yellow-mode')">📖 Eye Comfort</button>
+        <button onclick="resetSettings()">🔄 Reset</button>
     </div>
 
     <!-- FOOTER -->
@@ -221,20 +207,35 @@
     <!-- SCRIPT -->
     <script>
         function adjustFontSize(scale) {
-            let body = document.body;
-            let currentSize = parseFloat(getComputedStyle(body).fontSize);
+            let container = document.querySelector('.novel-container');
+            let currentSize = parseFloat(getComputedStyle(container).fontSize);
             let newSize = currentSize * scale;
-            if (newSize >= 12 && newSize <= 24) body.style.fontSize = newSize + 'px';
+            if (newSize >= 12 && newSize <= 24) {
+                container.style.fontSize = newSize + 'px';
+                localStorage.setItem('fontSize', newSize);
+            }
         }
 
         function toggleTheme(theme) {
             document.body.classList.remove('light-mode', 'yellow-mode');
             document.body.classList.add(theme);
+            localStorage.setItem('theme', theme);
         }
 
         function toggleSettings() {
             let panel = document.getElementById('settingsPanel');
-            panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+            panel.classList.toggle('active');
+            panel.style.display = panel.classList.contains('active') ? 'block' : 'none';
+        }
+
+        function resetSettings() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        function applySettings() {
+            document.body.classList.add(localStorage.getItem('theme') || '');
+            document.querySelector('.novel-container').style.fontSize = (localStorage.getItem('fontSize') || '16px');
         }
     </script>
 
