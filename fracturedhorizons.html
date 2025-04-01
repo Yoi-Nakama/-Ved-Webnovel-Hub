@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,6 +20,15 @@
             padding: 0;
             animation: fadeIn 1s ease-in;
             transition: background-color 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         /* 🔥 HEADER */
@@ -150,6 +159,12 @@
         .novel-card img {
             width: 100%;
             border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .novel-card img:hover {
+            transform: scale(1.05);
         }
 
         .novel-card a {
@@ -163,6 +178,7 @@
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            font-size: 18px;
         }
 
         .novel-card a:hover {
@@ -181,7 +197,21 @@
             color: black;
         }
 
+        /* 🔥 DARK MODE GLOWING EFFECTS */
+        .dark-mode .novel-card, .dark-mode header, .dark-mode nav a {
+            color: white;
+            text-shadow: 0 0 10px #facc15;
+        }
+
+        /* 🔥 MEDIA QUERIES FOR RESPONSIVENESS */
+        @media (max-width: 768px) {
+            .novel-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
+
     <script>
         function logoutUser() {
             localStorage.removeItem("isLoggedIn");
@@ -203,7 +233,7 @@
         }
 
         function toggleTheme(theme) {
-            document.body.classList.remove('light-mode', 'yellow-mode');
+            document.body.classList.remove('light-mode', 'yellow-mode', 'dark-mode');
             document.body.classList.add(theme);
             localStorage.setItem('theme', theme);
         }
@@ -257,24 +287,30 @@
     <!-- NOVEL CONTENT -->
     <div class="novel-container">
         <div class="novel-card">
-            <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/coverimagefracturedhorizons.html.jpeg" alt="Fractured Horizons Cover" loading="lazy">
-            <a href="read.html">Read Now</a>
+            <a href="readfracturedhorizons.html">
+                <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/fractured-horizons-thumbnail.jpg" alt="Fractured Horizons">
+                <b>Fractured Horizons</b>
+                <p>Chronicles of the Unseen</p>
+            </a>
         </div>
+        <!-- Add more novels/cards here -->
     </div>
 
-    <!-- SETTINGS PANEL -->
-    <div class="settings-panel" id="settingsPanel">
-        <button onclick="adjustFontSize(1.1)">A+</button>
-        <button onclick="adjustFontSize(0.9)">A-</button>
-        <button onclick="toggleTheme('light-mode')">🌞 Light Mode</button>
-        <button onclick="toggleTheme('yellow-mode')">📖 Eye Comfort</button>
-        <button onclick="resetSettings()">🔄 Reset</button>
-    </div>
-
-    <!-- FOOTER -->
+    <!-- 🔥 FOOTER -->
     <footer>
-        © 2025 Aryan Ved | Fractured Horizons
+        <p>Made with 💛 by Aryan Ved - <a href="about.html">About</a> | <a href="terms.html">Terms</a> | <a href="privacy.html">Privacy</a></p>
     </footer>
+
+    <!-- 🔥 SETTINGS PANEL -->
+    <div id="settingsPanel" class="settings-panel">
+        <h3>Settings</h3>
+        <button onclick="toggleTheme('light-mode')">🌞 Light Mode</button><br>
+        <button onclick="toggleTheme('yellow-mode')">🟨 Eye Comfort Mode</button><br>
+        <button onclick="toggleTheme('dark-mode')">🌙 Dark Mode</button><br>
+        <button onclick="adjustFontSize(1.1)">Increase Font</button><br>
+        <button onclick="adjustFontSize(0.9)">Decrease Font</button><br>
+        <button onclick="resetSettings()">Reset Settings</button><br>
+    </div>
 
 </body>
 </html>
