@@ -19,7 +19,7 @@
             margin: 0;
             padding: 0;
             animation: fadeIn 1s ease-in;
-            transition: background 0.5s ease;
+            transition: background-color 0.3s;
         }
 
         /* 🔥 HEADER */
@@ -130,20 +130,23 @@
             box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
         }
 
-        /* 🔥 LIGHT MODE */
+        /* 🔥 TRANSPARENT EFFECTS */
         .light-mode {
-            background: #ffffff url('https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/banner-light.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background-color: rgba(255, 255, 255, 0.9);
             color: black;
         }
 
-        /* 🔥 YELLOW (EYE COMFORT) MODE */
         .yellow-mode {
-            background: transparent;
-            color: #facc15;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: black;
         }
-    </style>
 
+        .novel-container {
+            font-size: 16px;
+            transition: font-size 0.3s ease;
+        }
+
+    </style>
     <script>
         function logoutUser() {
             localStorage.removeItem("isLoggedIn");
@@ -182,14 +185,15 @@
         }
 
         function applySettings() {
-            document.body.classList.add(localStorage.getItem('theme') || 'dark-mode');
+            const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+            document.body.classList.add(savedTheme);
             document.querySelector('.novel-container').style.fontSize = (localStorage.getItem('fontSize') || '16px');
         }
 
         window.onload = applySettings;
     </script>
 </head>
-<body class="dark-mode">
+<body>
 
     <!-- 🔥 SETTINGS BUTTON -->
     <div class="settings-btn" onclick="toggleSettings()">⚙</div>
@@ -218,7 +222,7 @@
     <!-- NOVEL CONTENT -->
     <div class="novel-container">
         <div class="novel-card">
-            <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/fractured-horizons-cover.jpg" alt="Fractured Horizons Cover" loading="lazy">
+            <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/refs/heads/main/coverimagefracturedhorizons.html.jpeg" alt="Fractured Horizons Cover" loading="lazy">
             <a href="read.html">Read Now</a>
         </div>
     </div>
