@@ -1,14 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">                                                                          
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>📚 VED WEBNOVEL HUB - Fractured Horizons</title>
 
-  <!-- 💫 Improved Favicon and Theme -->
+  <!-- 💫 Favicon and Theme -->
   <link rel="icon" href="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" type="image/png" />
 
-
   <style>
-    /* Global styles */
     * {
       margin: 0;
       padding: 0;
@@ -29,6 +29,26 @@
       to { opacity: 1; }
     }
 
+    /* 🔥 Logo at the very top */
+    .top-logo {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .top-logo img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid #facc15;
+      box-shadow: 0 0 25px rgba(250, 204, 21, 0.6);
+      animation: glowLogo 3s infinite alternate;
+    }
+
+    @keyframes glowLogo {
+      0% { box-shadow: 0 0 10px #facc15; }
+      100% { box-shadow: 0 0 25px #facc15, 0 0 40px #facc15; }
+    }
+
     header {
       background: rgba(24, 24, 24, 0.85);
       padding: 25px;
@@ -40,6 +60,7 @@
       animation: glowEffect 2s infinite alternate;
       backdrop-filter: blur(10px);
       border-bottom: 2px solid #facc15;
+      margin-top: 1rem;
     }
 
     @keyframes glowEffect {
@@ -192,6 +213,12 @@
 </head>
 <body>
 
+  <!-- 🧿 Top Logo Section -->
+  <div class="top-logo">
+    <img src="https://raw.githubusercontent.com/Yoi-Nakama/-Ved-Webnovel-Hub/main/icon.jpg" alt="Ved Logo">
+  </div>
+
+  <!-- 💥 Main Title -->
   <header>📚 VED WEBNOVEL HUB - Fractured Horizons</header>
 
   <!-- 🔥 NAVBAR -->
